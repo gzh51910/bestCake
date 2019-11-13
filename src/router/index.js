@@ -4,6 +4,7 @@ import home from "../page"
 import goodslist from "../page/goodsList.vue"
 import shopcar from "../page/shopCar.vue"
 import log from "../page/log.vue"
+import goods from "../page/goods.vue"
 
 Vue.use(VueRouter)
 
@@ -24,6 +25,10 @@ const routes = [
     path:"/log",
     component:log
   },
+  {
+    path:"/goods",
+    component:goods
+  }
   
 ]
 
