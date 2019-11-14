@@ -230,7 +230,7 @@
     }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
      @import '../css/goods.css';
      .el-menu-demo{
          display: none;

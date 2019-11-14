@@ -71,7 +71,7 @@ export default {
   methods: {}
 };
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 ul,
 li {
   list-style: none;
@@ -165,6 +165,7 @@ ul {
 .special{
     width: 100%;
     padding:3.4vw;
+    box-sizing: border-box; //因加了padding
 }
 // .special ul{
 //     // width: 100%;
@@ -183,5 +184,12 @@ ul {
     display: block;
     width: 100%;
     
+}
+.clear::after {
+  content: "";
+  height: 0;
+  display: block;
+  clear: both;
+  visibility: hidden;
 }
 </style>

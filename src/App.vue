@@ -59,7 +59,7 @@
   }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
   .el-menu-demo{
     position: fixed !important;
     bottom: 0;
