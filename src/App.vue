@@ -6,10 +6,6 @@
     
     <router-view></router-view>
 
-
-
-    
-
     <el-menu
       default-active="home"
       class="el-menu-demo"
@@ -48,6 +44,18 @@
     methods:{
 
     },
+    async created() {
+      let data = await this.getdata(
+        "?v=1573608979780&c=NsCakeCenter&m=GetJdListNew"
+      );
+      this.$store.commit("getGoddessData",data)    //提交数据给仓库
+
+      let homedata = await this.getdata(
+        "?v=1573643930562&c=NewIndexController&m=index"
+      );
+      this.$store.commit("getHomeData",homedata)
+    //console.log(this.data.data.Tag.cakelist);
+  },
   }
 </script>
 
