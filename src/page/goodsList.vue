@@ -1,9 +1,9 @@
 <template>
   <div id="goodslist">
-    <el-tabs v-model="activeName" @tab-click="handleClick">
+    <el-tabs v-model="activeName" @tab-click="handleClick" id="nav1">
       <!-- 自营 -->
-      <el-tab-pane label="自营" name="first" class="operation">
-        <el-tabs class="operationMenu" v-model="activeNametwo" @tab-click="handleClick">
+      <el-tab-pane label="自营" name="first" class="operation" >
+        <el-tabs class="operationMenu" v-model="activeNametwo" @tab-click="handleClick" id="nav2">
           <!-- 女神 -->
           <el-tab-pane label="女神" name="goddess" class="goddess">
             <OpeList :data="goddessdata" type="ns"></OpeList>
@@ -63,7 +63,7 @@ export default {
   computed: {
     goddessdata() {
       if (this.$store.state.operationData) {
-        return this.$store.state.operationData.filter(
+        return this.$store.state.operationData.filter(  //过滤输出符合条件的数据
           ele => ele.Brand == "女神系列"
         );
       }
@@ -100,7 +100,7 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .operation {
   width: 50%;
   // float: left;
@@ -119,7 +119,7 @@ export default {
   height: 13vw;
   line-height: 12vw;
 }
-.el-tabs__nav {
+.el-tabs__nav{
   width: 100%;
 }
 #goodslist .el-tabs__item {

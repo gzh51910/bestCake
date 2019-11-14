@@ -19,6 +19,7 @@
 </template>
 
 <script>
+
 export default {
     props:["data","type"],
     data() {
@@ -112,7 +113,7 @@ li:nth-child(2n + 1) {
 
 // price
 .price {
-//   width: 5.334vw;
+  width: 100%;
   height: 5.334vw;
   line-height: 1.6;
   position: relative;
