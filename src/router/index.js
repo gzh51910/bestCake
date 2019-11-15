@@ -5,11 +5,15 @@ import goodslist from "../page/goodsList.vue"
 import shopcar from "../page/shopCar.vue"
 import log from "../page/log.vue"
 import goods from "../page/goods.vue"
+
 import reg from "../page/reg.vue"
 import mine from "../page/mine.vue"
 import Myorder from "../page/Myorder.vue"
 import inf from "../page/inf.vue"
 import address from "../page/address.vue"
+
+import comment from "../page/comment.vue"
+
 
 Vue.use(VueRouter)
 
@@ -42,6 +46,7 @@ const routes = [{
     component: mine
   },
   {
+
     path: "/Myorder",
     component: Myorder
   },
@@ -52,6 +57,16 @@ const routes = [{
   {
     path: "/address",
     component: address
+  },
+  {
+    path:"/goods",
+    name:"goods",
+    component:goods
+  },
+  {
+    path:"/comment",
+    name:"comment",
+    component:comment
   }
 
 ]

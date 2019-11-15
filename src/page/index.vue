@@ -3,7 +3,9 @@
     <!-- {{getspecial}} -->
     <!-- banner -->
     <div class="block">
+
       <!-- <span class="demonstration">Click 指示器触发</span> -->
+
       <el-carousel trigger="click" height="150px">
         <el-carousel-item v-for="(item,idx) in getbannerdata" :key="idx">
           <div>
@@ -128,12 +130,21 @@ export default {
       return [];
     }
   },
-  methods: {},
+
   components: {
     HomeBox
+  },
+  methods: {
+    goodsT(id){
+        this.$router.push({path:'goods',query:{id},params:{id}})
+    }
+
   }
 };
 </script>
+
+
+
 <style lang="scss" scoped>
 ul,
 li {
