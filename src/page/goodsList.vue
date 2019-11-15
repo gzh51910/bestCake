@@ -100,6 +100,9 @@ export default {
 };
 </script>
 
+
+
+
 <style lang="scss" scoped>
 .operation {
   width: 50%;

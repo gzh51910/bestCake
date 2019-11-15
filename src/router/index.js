@@ -5,6 +5,7 @@ import goodslist from "../page/goodsList.vue"
 import shopcar from "../page/shopCar.vue"
 import log from "../page/log.vue"
 import goods from "../page/goods.vue"
+import comment from "../page/comment.vue"
 
 Vue.use(VueRouter)
 
@@ -27,7 +28,13 @@ const routes = [
   },
   {
     path:"/goods",
+    name:"goods",
     component:goods
+  },
+  {
+    path:"/comment",
+    name:"comment",
+    component:comment
   }
   
 ]
