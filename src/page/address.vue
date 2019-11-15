@@ -1,14 +1,34 @@
 <template>
-    <div class="address-title">
-        <router-link to="/mine">
-            <div class="back"></div>
-        </router-link>
+    <div>
+        <div class="address-title">
+            <router-link to="/mine">
+                <div class="back"></div>
+            </router-link>
+        </div>
+        <div>
+            <el-table :data="tableData" style="width: 100%">
+                <el-table-column prop="date" label="用户姓名" width="100">
+                </el-table-column>
+                <el-table-column prop="name" label="联系电话" width="90">
+                </el-table-column>
+                <el-table-column prop="address" label="家庭地址">
+                </el-table-column>
+            </el-table>
+        </div>
     </div>
 </template>
 <script>
 export default {
     data() {
-        return {};
+        return {
+            tableData: [
+                {
+                    date: "老谢",
+                    name: "87563222",
+                    address: "上海市普陀区金沙江路 1518 弄"
+                }
+            ]
+        };
     },
     methods: {}
 };
