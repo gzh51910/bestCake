@@ -5,31 +5,55 @@ import goodslist from "../page/goodsList.vue"
 import shopcar from "../page/shopCar.vue"
 import log from "../page/log.vue"
 import goods from "../page/goods.vue"
+import reg from "../page/reg.vue"
+import mine from "../page/mine.vue"
+import Myorder from "../page/Myorder.vue"
+import inf from "../page/inf.vue"
+import address from "../page/address.vue"
 
 Vue.use(VueRouter)
 
-const routes = [
-  {
-    path:"/",
-    component:home
+const routes = [{
+    path: "/",
+    component: home
   },
   {
-    path:"/goodslist",
-    component:goodslist
+    path: "/goodslist",
+    component: goodslist
   },
   {
-    path:"/shopcar",
-    component:shopcar
+    path: "/shopcar",
+    component: shopcar
   },
   {
-    path:"/log",
-    component:log
+    path: "/log",
+    component: log
   },
   {
-    path:"/goods",
-    component:goods
+    path: "/goods",
+    component: goods
+  },
+  {
+    path: "/reg",
+    component: reg
+  },
+  {
+    path: "/mine",
+    component: mine
+  },
+  {
+    path: "/Myorder",
+    component: Myorder
+  },
+  {
+    path: "/inf",
+    component: inf
+  },
+  {
+    path: "/address",
+    component: address
   }
-  
+
 ]
 
 const router = new VueRouter({
