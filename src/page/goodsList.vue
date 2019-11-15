@@ -49,7 +49,7 @@ import OpeList from "../components/List-ope-goddess";
 export default {
   data() {
     return {
-      activeName: "first",
+      activeName: "first",     //默认显示
       activeNametwo: "goddess",
       activeNamethree: "dairy"
     };

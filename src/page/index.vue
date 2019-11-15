@@ -111,19 +111,24 @@ export default {
     getwonderfulTime() {
       if (this.$store.state.homeData != "") {
         //0/null/undefined/""   []
-        return JSON.parse(this.$store.state.homeData.SaleList[0].CakeList); //字符串->对象
+        let data=JSON.parse(this.$store.state.homeData.SaleList[0].CakeList.replace(/'/g,"\""));
+        return data; //字符串->对象
       }
       return [];
     },
     getleisureFood() {
       if (this.$store.state.homeData != "") {
-        return JSON.parse(this.$store.state.homeData.SaleList[1].CakeList);
+        let data=JSON.parse(this.$store.state.homeData.SaleList[1].CakeList.replace(/'/g,"\""));
+        
+        return data;
       }
       return [];
     },
     geticeCream() {
       if (this.$store.state.homeData != "") {
-        return JSON.parse(this.$store.state.homeData.SaleList[2].CakeList);
+        let data=JSON.parse(this.$store.state.homeData.SaleList[2].CakeList.replace(/'/g,"\""));
+        
+        return data;
       }
       return [];
     }

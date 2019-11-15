@@ -12,11 +12,16 @@ export default new Vuex.Store({
   },
   mutations: {
     getGoddessData(state,data){
-      state.operationData=data.data.Tag.cakelist;
+      // state.operationData=data.data.Tag.cakelist;
+      console.log(data);
+      
+      state.operationData=data.data;
+
       console.log("operationData",state.operationData);
     },
     getHomeData(state,data){
-      state.homeData=data.data.Tag.mainresult;
+      
+      state.homeData=data.data[0].mainresult;
       console.log("homeData",state.homeData);
     }
     

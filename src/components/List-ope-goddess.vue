@@ -1,7 +1,7 @@
 <template>
   <div>
     <ul>
-      <li v-for="item in data" :key="item.ID">
+      <li v-for="(item,idx) in data" :key="item.ID">
         <!-- <img src="https://res.bestcake.com/m-images/ww/ns/许愿天使3.2(月饼兑换款).jpg?v=10" class="am-img-responsive"> -->
         <div class="listImg"><img :src="geturl(item.Name)" alt /></div>
         <div class="details">
@@ -10,7 +10,7 @@
           <p class="price">
             <span class="priceNew">￥{{item.CurrentPrice}}.00</span>
             <span class="weight">/{{item.LabelText}}</span>
-            <img class="shopcart" src="../assets/imgs/list-cart.png" alt />
+            <img class="shopcart" src="../assets/imgs/list-cart.png" alt @click="addtocar(idx)"/>
           </p>
         </div>
       </li>
@@ -25,13 +25,36 @@ export default {
     data() {
         return {
         // data: []
+        arr:[]
         };
     },
     methods: {
         geturl(name) {
-            console.log(this.type);
             
             return `https://res.bestcake.com/m-images/ww/${this.type}/${name}.png?v=10`;
+        },
+        addtocar(idx){
+            // let data=localStorage.getItem("ShoppingCart");                   //获取数据
+            // if(!data){
+              let newdata=JSON.parse(JSON.stringify(this.data[idx]));           //深拷贝（给arr添加属性num）
+              let id=newdata.ID;
+              let str=JSON.stringify(this.arr)
+              if(str.indexOf(id)==-1){
+                newdata.num=1;
+                this.arr.push(newdata); 
+              }
+              else{
+                console.log(123);
+                
+                this.arr.forEach(ele => {
+                  if(ele.ID==id){
+                    ele.num+=1;
+                  }
+                });
+              }
+                    //把该商品数据存起来
+              localStorage.setItem("ShoppingCart",JSON.stringify(this.arr))      //把数组-》对象
+            // }
         }
     },
     // computed: {

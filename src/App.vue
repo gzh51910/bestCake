@@ -45,13 +45,19 @@
 
     },
     async created() {
+      // let data = await this.getdata(
+      //   "?v=1573608979780&c=NsCakeCenter&m=GetJdListNew"
+      // );
       let data = await this.getdata(
-        "?v=1573608979780&c=NsCakeCenter&m=GetJdListNew"
+        "getdata"
       );
       this.$store.commit("getGoddessData",data)    //提交数据给仓库
 
+      // let homedata = await this.getdata(
+      //   "?v=1573643930562&c=NewIndexController&m=index"
+      // );
       let homedata = await this.getdata(
-        "?v=1573643930562&c=NewIndexController&m=index"
+        "getindex"
       );
       this.$store.commit("getHomeData",homedata)
     //console.log(this.data.data.Tag.cakelist);
