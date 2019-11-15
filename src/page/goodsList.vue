@@ -101,6 +101,8 @@ export default {
 </script>
 
 <style lang="scss">
+
+
 .operation {
   width: 50%;
   // float: left;

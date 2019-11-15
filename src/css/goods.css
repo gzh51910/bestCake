@@ -716,17 +716,25 @@ a, a:hover {
     margin-top: 2vw
 }
 .tabbang{
-    width: 100%;
-    height: auto;
-    float: left;
-}
-.tab-bang-x{
     width: 30%;
     height: 7vw;
-    background: greenyellow;
+    border: 0.3vw solid #666;
+    border-radius: 10%;
+
+    color: #999;
     float: left;
-    margin-left: 3%;
-    margin-top: 0.7vw;
+    margin-left: 2%;
+    margin-top: 0.9vw;
+
+
+
+    
+}
+.tab-bang-x{
+    width: 100%;
+    line-height: 7vw;
+    text-align: center
+  
 }
 .tabxinxi{
     width: 100%;
@@ -756,7 +764,7 @@ a, a:hover {
     height: 7vw;
 }
 .tab-x-n-right{
-    float: right;
-    font-size: 4.2vw;
-    line-height: 7vw
+    font-size: 3.2vw;
+    margin-left: 9.2vw;
+    line-height: 7vw;
 }

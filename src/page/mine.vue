@@ -5,25 +5,25 @@
             <div class="mine-img" align="center">
                 <img src="https://res.bestcake.com/m-images/order/mw-person-tx.png" alt="">
             </div>
-            <div class="mine-username">1898897994</div>
+            <div class="mine-username">{{username}}</div>
         </div>
         <div class="mine-list">
             <ul>
                 <li>
                     <p>余额</p>
-                    <span>350000.00</span>
+                    <span>0.00</span>
                 </li>
                 <li>
                     <p>吉致币</p>
-                    <span>100000</span>
+                    <span>0.00</span>
                 </li>
                 <li>
                     <p>优惠卷</p>
-                    <span>5000</span>
+                    <span>0.00</span>
                 </li>
                 <li>
                     <p>兑换券</p>
-                    <span>10000</span>
+                    <span>0.00</span>
                 </li>
             </ul>
         </div>
@@ -62,8 +62,13 @@
 <script>
 export default {
     data() {
-        return {};
+        return {
+            username:""
+        }
     },
+    created(){
+        this.username = this.$route.query.username 
+    },  
     methods: {
         
     }
@@ -74,8 +79,6 @@ export default {
     margin: 0;
     padding: 0;
 }
-
-
 
 html {
     background: pink;

@@ -1,7 +1,10 @@
 <template>
   <div>
+    
     <ul>
-      <li v-for="(item,idx) in data" :key="item.ID">
+
+      <li v-for="(item,idx) in data" :key="item.ID" @click="goodsT(item.Name,item.Brand)">
+
         <!-- <img src="https://res.bestcake.com/m-images/ww/ns/许愿天使3.2(月饼兑换款).jpg?v=10" class="am-img-responsive"> -->
         <div class="listImg"><img :src="geturl(item.Name)" alt /></div>
         <div class="details">
@@ -32,6 +35,7 @@ export default {
         geturl(name) {
             
             return `https://res.bestcake.com/m-images/ww/${this.type}/${name}.png?v=10`;
+
         },
         addtocar(idx){
             // let data=localStorage.getItem("ShoppingCart");                   //获取数据
@@ -55,6 +59,11 @@ export default {
                     //把该商品数据存起来
               localStorage.setItem("ShoppingCart",JSON.stringify(this.arr))      //把数组-》对象
             // }
+
+        }, 
+        goodsT(id,brand){
+          this.$router.push({path:'goods',query:{id,brand},params:{id}})
+
         }
     },
     // computed: {

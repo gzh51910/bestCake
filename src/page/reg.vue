@@ -3,8 +3,11 @@
         <div class="reg-title">
             <div class="reg-btn">
                 <label class="back">
+                <router-link to="/log" tag="li">
                     <i class="el-icon-arrow-left"></i>
+                    </router-link>
                 </label>
+                
             </div>
         </div>
         <div class="reg-top">
@@ -15,8 +18,8 @@
                 <el-form-item label="用户名" prop="username">
                     <el-input v-model="ruleForm.username"></el-input>
                 </el-form-item>
-                <el-form-item label="密码" prop="pass">
-                    <el-input type="password" v-model="ruleForm.pass" autocomplete="off"></el-input>
+                <el-form-item label="密码" prop="password">
+                    <el-input type="password" v-model="ruleForm.password" autocomplete="off"></el-input>
                 </el-form-item>
                 <el-form-item label="确认密码" prop="checkPass">
                     <el-input type="password" v-model="ruleForm.checkPass" autocomplete="off"></el-input>
@@ -33,8 +36,8 @@
 export default {
     data() {
         const validatePass = (rule, value, callback) => {
-            if (value !== this.ruleForm.pass) {
-                callback(new Error("两次输入密码不一致!"));
+            if (value !== this.ruleForm.password) {
+                callback(new Error("两次输入密码不对!"));
             } else {
                 callback();
             }
@@ -42,22 +45,22 @@ export default {
 
         const checkUsername = (rule, value, callback) => {
             if (!/^[a-z]/i.test(value)) {
-                callback(
-                    new Error("用户名必须以字母开头！")
-                );
-            } else if(!/^[a-z][\w-]+$/i.test(value)) {
-                callback(new Error('用户名必须为数字字母下划线横杠组成'));
+                callback(new Error("用户名必须以字母开头！"));
+            } else if (!/^[a-z][\w-]+$/i.test(value)) {
+                callback(new Error("用户名必须为数字字母下划线横杠组成"));
+            } else {
+                callback();
             }
         };
         return {
             labelPosition: "left",
             ruleForm: {
                 username: "",
-                pass: "",
+                passworde: "",
                 checkPass: ""
             },
             rules: {
-                pass: [
+                password: [
                     { required: true, message: "请输入密码", trigger: "blur" },
                     {
                         min: 6,
@@ -90,10 +93,23 @@ export default {
     methods: {
         submitForm() {
             //验证整个表单
-            this.$refs.regForm.validate(valid => {
+            this.$refs.regForm.validate(async valid => {
                 if (valid) {
-                    alert("恭喜您注册成功!");
-                    this.$router.replace("/mine");
+                    let { username, password } = this.ruleForm;
+                    let data = await this.postdata(
+                        "http://120.24.166.74:3001/register",
+                        {
+                            username,
+                            password
+                        }
+                    );
+                    if (data.data.status === 1) {
+                        alert("恭喜！注册成功！");
+                        this.$router.replace("/log");
+                    }
+                    if (data.data.status === 0) {
+                        alert("用户名已存在！");
+                    }
                 } else {
                     return false;
                 }
@@ -114,6 +130,7 @@ export default {
         line-height: 11.2vw;
         color: #fff;
         font-size: 5.267vw;
+        margin-left: 2vw;
         .btn {
             margin-left: 2vw;
         }
