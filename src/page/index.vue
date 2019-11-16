@@ -45,7 +45,6 @@
     <div class="special">
       <ul class="clear">
         <li v-for="item in getspecial" :key="item.Id" @click="goodsT(item.Name,item.Brand)">
-          {{item}}
           <img :src="item.ImgUrl" alt />
         </li>
       </ul>
