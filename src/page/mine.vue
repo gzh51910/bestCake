@@ -5,7 +5,7 @@
             <div class="mine-img" align="center">
                 <img src="https://res.bestcake.com/m-images/order/mw-person-tx.png" alt="">
             </div>
-            <div class="mine-username">{{username}}</div>
+            <div class="mine-username">{{this.$store.state.username}}</div>
         </div>
         <div class="mine-list">
             <ul>
@@ -41,17 +41,20 @@
                 </div>
             </router-link>
             <router-link to="/inf" tag="li">
-            <div class="foot">
-                <div class="foot-left">
-                    <img src="https://res.bestcake.com\m-images\order\mw_firm_ad.jpg" alt="">
-                    <p>收货地址</p>
+                <div class="foot">
+                    <div class="foot-left">
+                        <img src="https://res.bestcake.com\m-images\order\mw_firm_ad.jpg" alt="">
+                        <p>收货地址</p>
+                    </div>
+                    <div class="foot-right">
+                        <img src="https://res.bestcake.com\m-images\order\mw_firm_right.jpg" alt="">
+
+                    </div>
                 </div>
-                <div class="foot-right">
-                    <img src="https://res.bestcake.com\m-images\order\mw_firm_right.jpg" alt="">
-                    
-                </div>
-            </div>
             </router-link>
+        </div>
+        <div class="out">
+            <p @click="logOut">退出登录</p>
         </div>
         <div class="phone">客服热线：400-627-5757</div>
         <div class="end">服务协议与证照信息</div>
@@ -63,14 +66,18 @@
 export default {
     data() {
         return {
-            username:""
-        }
+            username: ""
+        };
     },
-    created(){
-        this.username = this.$route.query.username 
-    },  
+    created() {
+        this.username = this.$route.query.username;
+    },
     methods: {
-        
+        logOut() {
+            localStorage.clear('Authrization');
+            this.$router.replace('/log');
+
+        }
     }
 };
 </script>
@@ -193,7 +200,7 @@ html {
             }
         }
         .phone {
-            margin-top: 35.73vw;
+            margin-top: 15.73vw;
             line-height: 4vw;
             color: #999;
             font-size: 2.93vw;
@@ -205,7 +212,23 @@ html {
             color: #999;
             font-size: 2.93vw;
             text-align: center;
-            padding-bottom: 25vw;
+            padding-bottom: 30vw;
+        }
+        .out {
+            text-align: center;
+            margin-top: 4vw;
+            text-align: center;
+            background: #fff;
+            width: 100%;
+            height: 12vw;
+            p {
+                color: #f2495e;
+                margin-top: 3.867vw;
+                margin-bottom: 3.867vw;
+                font-size: 3.7334vw;
+                line-height: 3.7334vw;
+                line-height: 12vw;
+            }
         }
     }
 }

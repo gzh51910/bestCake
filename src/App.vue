@@ -25,7 +25,7 @@
           <router-link to="/shopcar"><img src="./assets/imgs/shopcar.png" alt=""></router-link>
         </el-menu-item></el-col>
         <el-col :span="6"><el-menu-item >
-          <router-link to="/log"><img src="./assets/imgs/user.png" alt=""></router-link>
+          <router-link to="/mine"><img src="./assets/imgs/user.png" alt=""></router-link>
         </el-menu-item></el-col>
       </el-row>
       
