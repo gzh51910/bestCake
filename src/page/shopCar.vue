@@ -137,7 +137,7 @@
 export default {
   data() {
     return {
-      data: []
+      list: []
     };
   },
   methods: {
@@ -174,10 +174,12 @@ export default {
   },
   computed: {
     shoplist() {
-      return this.data;
+      return this.list;
     },
     totalPrices(){
       let total=0;
+      console.log(this.data,"====");
+      
       this.shoplist.forEach((item)=>{
         total+=item.CurrentPrice*item.num;
       })
@@ -192,7 +194,13 @@ export default {
     }
   },
   created() {
-    this.data = JSON.parse(localStorage.getItem("ShoppingCart"));
+    if(!localStorage.getItem("ShoppingCart")){
+      this.data = JSON.parse(localStorage.getItem("ShoppingCart"));
+    }
+    else{
+      this.data=[]
+    }
+    
   }
 };
 </script>

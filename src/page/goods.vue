@@ -222,8 +222,10 @@
             }
         },
         async mounted() {
+            console.log(this.$route);
+            
             if (this.$route.query.brand == "女神系列") {
-                this.data8 = await this.getdata(`?Name=${this.$route.query.id}&c=NsCakeCenter&m=GetNSCakeByName`)
+                this.data8 = await this.getdata(`http://localhost:1910/?Name=${this.$route.query.id}&c=NsCakeCenter&m=GetNSCakeByName`)
                 this.nstext = this.data8.data.Tag[0]
                 this.nstext.Resource = this.data8.data.Tag[0].Resource
                 this.nstext.Sweet = this.data8.data.Tag[0].Sweet
@@ -232,7 +234,7 @@
                 this.price = this.data8.data.Tag[0].CurrentPrice
             } else if (this.$route.query.brand == "卡思客") {
                 this.data8 = await this.getdata(
-                    `?City=杭州&ProName=${this.$route.query.id}&c=Product&m=GetCakeByName&v=1573724141778`)
+                    `http://localhost:1910/?City=杭州&ProName=${this.$route.query.id}&c=Product&m=GetCakeByName&v=1573724141778`)
                 this.zhong = this.data8.data.Tag.infos.CakeType
                 this.nstext = this.data8.data.Tag.infos
                 this.nstext.Resource = this.data8.data.Tag.infos.Resourse
@@ -240,7 +242,7 @@
                 this.nstext.KeepFresh = this.nstext.KeepFresh
             } else if (this.$route.query.brand == "极致蛋糕") {
                 this.data8 = await this.getdata(
-                    `?City=%E6%9D%AD%E5%B7%9E&ProName=${this.$route.query.id}&c=IndexCenter&m=GetjzCakeInfo&v=1573724235797`
+                    `http://localhost:1910/?City=%E6%9D%AD%E5%B7%9E&ProName=${this.$route.query.id}&c=IndexCenter&m=GetjzCakeInfo&v=1573724235797`
                     )
                 console.log(this.data8.data.Tag[0], this.$route.query.id, this.$route.query.brand);
                 this.nstext = this.data8.data.Tag[0]
@@ -249,7 +251,7 @@
                 this.nstext.Sweet = this.nstext.CurrentPro.Sweet
             } else if (this.$route.query.brand == "乳品系列") {
                 this.data8 = await this.getdata(
-                    `?Name=${this.$route.query.id}(125mlx4)&c=NsCakeCenter&m=GetRuPCakeByName&v=1573724319821`)
+                    `http://localhost:1910/?Name=${this.$route.query.id}(125mlx4)&c=NsCakeCenter&m=GetRuPCakeByName&v=1573724319821`)
                 console.log(this.data8, this.$route.query.id, this.$route.query.brand);
                 this.nstext = this.data8.data.Tag[0]
             }

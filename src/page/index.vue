@@ -44,7 +44,8 @@
     <!-- special -->
     <div class="special">
       <ul class="clear">
-        <li v-for="item in getspecial" :key="item.Id">
+        <li v-for="item in getspecial" :key="item.Id" @click="goodsT(item.Name,item.Brand)">
+          {{item}}
           <img :src="item.ImgUrl" alt />
         </li>
       </ul>
@@ -140,10 +141,12 @@ export default {
     HomeBox
   },
   methods: {
-    goodsT(id){
-        this.$router.push({path:'goods',query:{id},params:{id}})
+    // goodsT(id){
+    //     this.$router.push({path:'goods',query:{id},params:{id}})
+    // },
+    goodsT(id,brand){
+      this.$router.push({path:'goods',query:{id,brand},params:{id}})
     }
-
   }
 };
 </script>
