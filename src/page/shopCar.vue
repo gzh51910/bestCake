@@ -131,6 +131,7 @@
         </div>
       </div>
     </div>
+    <!-- {{aaa(index)}} -->
   </div>
 </template>
 <script>
@@ -189,7 +190,16 @@ export default {
         discount+=(item.CurrentPrice*item.num*(1-0.8));
       })
       return discount.toFixed(2);
-    }
+    },
+    // aaa(index){
+    //   return function totalPrices(){
+    //     let total=index;
+    //     this.shoplist.forEach((item)=>{
+    //       total+=item.CurrentPrice*item.num;
+    //     })
+    //     return total.toFixed(2);
+    //   }
+    // }
   },
   created() {
     this.data = JSON.parse(localStorage.getItem("ShoppingCart"));
