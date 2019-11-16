@@ -19,8 +19,7 @@ import comment from "../page/comment.vue"
  import CarouselShow4 from "../page/CarouselShow-04.vue"
  import PlaceOrder from "../page/PlaceOrder.vue"
 
-
-Vue.use(VueRouter)
+Vue.use(VueRouter);
 
 const routes = [{
     path: "/",
@@ -36,7 +35,8 @@ const routes = [{
   },
   {
     path: "/log",
-    component: log
+    component: log,
+
   },
   {
     path: "/goods",
@@ -48,10 +48,12 @@ const routes = [{
   },
   {
     path: "/mine",
-    component: mine
+    component: mine,
+    meta: {
+      check: true
+    }
   },
   {
-
     path: "/Myorder",
     component: Myorder
   },
@@ -64,9 +66,9 @@ const routes = [{
     component: address
   },
   {
-    path:"/goods",
-    name:"goods",
-    component:goods
+    path: "/goods",
+    name: "goods",
+    component: goods
   },
   {
     path:"/comment",
@@ -97,6 +99,11 @@ const routes = [{
     path:"/PlaceOrder",
     name:"PlaceOrder",
     component:PlaceOrder
+  },
+  {
+    path: "/comment",
+    name: "comment",
+    component: comment
   }
 
 ]
@@ -105,6 +112,28 @@ const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes
+})
+
+router.beforeEach(async function (to, from, next) {
+  console.log(to, from);
+  if (to.meta.check) {
+    let token = localStorage.getItem("Authrization");
+    let username = localStorage.getItem("username");
+    if (token) {
+      let result = await Vue.prototype.getdata("/checktoken",{
+        params:{
+          username,
+          token
+        }
+      })
+      console.log(result);
+
+      next()
+    } else {
+      next("/log")
+    }
+  }
+  next()
 })
 
 export default router

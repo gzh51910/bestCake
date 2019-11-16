@@ -1,8 +1,51 @@
 <template>
-  <div>
-    <!-- shoppingCart -->
+  <div class="shopCart">
+    <!-- 1shoppingCart -->
+    <div class="shopCart-list clear">
+      <ul>
+        <li v-for="item in shoplist" :key="item.ID">
+          <!-- (1)购物车内容 -->
+      
+          <div class="shopCart-content clear">
+            <!-- 选中按钮 -->
+            <div class="selected">
+              <img src="../assets/imgs/cart-mw_firm_duihao_1.jpg" alt />
+            </div>
+            <!-- 商品信息 -->
+            <div class="list-product">
+              <!-- 商品图 -->
+              <img class="list-product-l" :src="getListUrl(item.Name,item.Brand)" alt />
 
-    <!-- hotList -->
+              <!-- 商品（名称、规格、数量、单价） -->
+              <div class="list-product-r">
+                <h4 class="shopCart-title">{{item.Name}}</h4>
+
+                <div class="shopCart-des">
+                  <div class="shopCart-des-sn clear">
+                    <span class="shopCart-des-size">{{item.Size}}</span>
+
+                    <div class="shopCart-des-num">
+                      <span class="num-red" @click="reduceNum(item)">-</span>
+                      <i class="BNUM">{{item.num}}</i>
+                      <span class="num-add" @click="addNum(item)">+</span>
+                    </div>
+                  </div>
+                    <!-- 价格 -->
+                  <div class="shopCart-des-price">{{item.CurrentPrice*item.num}}.00</div>
+                  <div class="shopCart-des-price-dis"> <s> {{item.CurrentPrice*item.num/0.8}}.00</s></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- (2)优惠方式 -->
+          <div class="shopCart-discount">
+            <span class="discount-l">优惠方式</span>
+            <span class="discount-way">不参与活动</span>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <!-- 2hotList -->
     <div class="hotList-box">
       <div class="hotList-title">
         <h2>Hot Recommend</h2>
@@ -10,7 +53,7 @@
         <p>热销新品推荐</p>
       </div>
       <div class="hotList">
-        <ul>
+        <ul class="clear">
           <li>
             <img
               class="list-img-top"
@@ -61,26 +104,270 @@
         </ul>
       </div>
     </div>
-    <div></div>
+    <!-- 3totalPrices -->
+    <div class="totalPrices">
+      <div class="totalPrices-l">
+        <span>
+          <img src="../assets/imgs/cart-mw_firm_duihao_1.jpg" alt />全选
+          <i class="totalPrices-clear">清空</i>
+        </span>
+      </div>
+
+      <div class="totalPrices-r">
+        <!-- 合计 -->
+        <div class="totalPrices-td">
+          <p class="total">
+            合计：
+            <span class="total-prices">{{totalPrices}}</span>
+          </p>
+          <p class="discount">
+            已优惠：
+            <span class="discount-prices">{{totalPricesDis}}</span>
+          </p>
+        </div>
+        <!-- 结算 -->
+        <div class="accounr">
+          <a href="#">结算</a>
+        </div>
+      </div>
+    </div>
+    <!-- {{aaa(index)}} -->
   </div>
 </template>
 <script>
 export default {
   data() {
-    return {};
+    return {
+      data: []
+    };
   },
-  methods: {}
+  methods: {
+    getListUrl(name, brand) {
+      if (brand == "卡思客") {
+        return `https://res.bestcake.com/m-images/ww/jd/${name}.png?`;
+      } else if (brand == "女神系列") {
+        return `https://res.bestcake.com/m-images/ww/ns/${name}.jpg?`;
+      } else if (brand == "极致蛋糕") {
+        return `https://res.bestcake.com/m-images/ww/jz/${name}.png?`;
+      } else {
+        return `https://res.bestcake.com/m-images/ww/rp/${name}.jpg?`;
+      }
+    },
+    reduceNum(item) {
+    
+      if (item.num > 0) {
+        if (item.num == 1) {
+          item.num = 1;
+        } else {
+          item.num -= 1;
+          // item.CurrentPrice=
+        }
+      }
+      console.log("num-1=",item.num);
+    },
+    addNum(item){
+      if(item.num>0){
+        item.num ++;
+      }
+      console.log("num+1=",item.num);
+      
+    }
+  },
+  computed: {
+    shoplist() {
+      return this.data;
+    },
+    totalPrices(){
+      let total=0;
+      this.shoplist.forEach((item)=>{
+        total+=item.CurrentPrice*item.num;
+      })
+      return total.toFixed(2);
+    },
+    totalPricesDis(){
+      let discount=0;
+      this.shoplist.forEach((item)=>{
+        discount+=(item.CurrentPrice*item.num*(1-0.8));
+      })
+      return discount.toFixed(2);
+    },
+    // aaa(index){
+    //   return function totalPrices(){
+    //     let total=index;
+    //     this.shoplist.forEach((item)=>{
+    //       total+=item.CurrentPrice*item.num;
+    //     })
+    //     return total.toFixed(2);
+    //   }
+    // }
+  },
+  created() {
+    this.data = JSON.parse(localStorage.getItem("ShoppingCart"));
+  }
 };
 </script>
 <style lang="scss">
-.hotList-box{
-    width: 100%;
-    padding-top: 17.2vw;
+// shopCart
+.shopCart {
+  width: 100%;
+  // padding-top: 4.26vw;
+  box-sizing: border-box;
+  background: #f7f7f7;
+}
+.shopCart-list {
+  width: 100%;
+}
+.shopCart-list ul {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  float: left;
+}
+.shopCart-list li {
+  padding: 4.26vw 6vw 0vw 4vw;
+  margin-bottom: 4vw;
+  background: #fff;
+}
+// (1)购物车内容
+.shopCart-content {
+  width: 100%;
+}
+// selected
+.selected {
+  float: left;
+  margin-right: 3vw;
+}
+.selected img {
+  display: block;
+  width: 5.33vw;
+  margin-top: 12.74vw;
+}
+// 商品信息
+.list-product {
+  width: 81vw;
+  float: left;
+  // border-bottom: 0.133vw solid #ddd;
+}
+.list-product-l {
+  float: left;
+  width: 30.4vw;
+  margin-right: 4vw;
+  padding-top: 4.26vw;
+}
+
+.list-product-r {
+  // padding-top: 5.06vw;
+  float: left;
+  width: 46.6vw;
+}
+
+// shopCart-title
+.shopCart-title {
+  width: 46.6vw;
+  font-size: 4.26vw;
+  line-height: 5.06vw;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+// shopCart-des
+.shopCart-des {
+  width: 100%;
+}
+
+// size
+.shopCart-des-size {
+  width: 50%;
+  float: left;
+  font-size: 2.93vw;
+  color: #ccc;
+  line-height: 3.46vw;
+  margin-top: 1.69vw;
+}
+
+// num
+.shopCart-des-num {
+  float: left;
+  color: #333;
+  // font-weight: bold;
+  line-height: 6vw;
+}
+
+// -
+.num-red {
+  font-size: 9vw;
+  display: block;
+  float: left;
+  width: 6vw;
+  text-align: center;
+}
+
+// BNUM
+.BNUM {
+  display: block;
+  float: left;
+  padding: 0 3vw;
+  font-style: normal;
+}
+
+// +
+.num-add {
+  font-size: 6vw;
+  display: block;
+  float: left;
+  width: 6vw;
+  text-align: center;
+}
+
+// shopCart-des-price
+.shopCart-des-price {
+  float: left;
+  margin-right: 2vw;
+  font-size: 3vw;
+  color: #030303;
+  font-weight: bold;
+  line-height: 4vw;
+  margin-top: 2.66vw;
+}
+.shopCart-des-price-dis{
+  float: left;
+  font-size: 3vw;
+  color: #ccc;
+  font-weight: bold;
+  line-height: 4vw;
+  margin-top: 2.66vw;
+}
+
+// 2优惠方式
+.shopCart-discount {
+  // width: 100%;
+  margin-left: 8.33vw;
+  line-height: 5.33vw;
+  padding: 3.86vw 0 3.86vw 0vw;
+  font-size: 3.73vw;
+  border-top: 0.133vw solid #ddd;
+}
+.discount-l {
+  float: left;
+  color: #f2495e;
+  margin-right: 1.333vw;
+  font-weight: bold;
+}
+.discount-way {
+  color: #333;
+}
+
+// hotList-box
+.hotList-box {
+  width: 100%;
+  padding-top: 17.2vw;
 }
 .hotList {
   width: 100%;
-  margin: 0 1.8vw;
+  padding: 0 1.8vw;
   background: #f7f7f7;
+  box-sizing: border-box;
 }
 .hotList-title {
   margin-bottom: 12.26vw;
@@ -108,6 +395,7 @@ export default {
 .hotList ul {
   padding: 0;
   margin: 0;
+  padding-bottom: 30vw;
 }
 .hotList li {
   width: 44vw;
@@ -155,5 +443,95 @@ export default {
   position: absolute;
   right: 0;
   top: -1vw;
+}
+.total {
+  font-size: 2.933vw;
+  line-height: 6vw;
+}
+.total-prices {
+  font-size: 4.8vw;
+  color: #f2495e;
+  font-weight: bold;
+}
+// totalPrices
+.totalPrices {
+  width: 100%;
+  // height: 13.333vw;
+  position: fixed; //
+  bottom: 14vw;
+  left: 0;
+  background: #fff;
+  z-index: 999;
+  box-sizing: border-box;
+}
+
+// selected-l
+.totalPrices-l {
+  width: 30vw;
+  float: left;
+  margin-top: 4.15vw;
+  padding-left: 3vw;
+  margin-right: 3vw;
+  font-size: 4vw;
+  color: #333;
+  line-height: 5.6vw;
+}
+.totalPrices-l img {
+  float: left;
+  display: block;
+  width: 5.33vw;
+  margin-right: 2.15vw;
+}
+
+// clear
+.totalPrices-clear {
+  font-size: 3.46vw;
+  font-style: normal;
+  margin-left: 4vw;
+}
+
+// totalPrices-r
+.totalPrices-r {
+  float: right;
+  text-align: right;
+}
+.totalPrices-td {
+  float: left;
+  margin-top: 2vw;
+  padding-right: 3vw;
+  // background: #fff;
+}
+.totalPrices-td p {
+  margin: 0;
+  padding: 0;
+}
+// 合计
+
+// 已优惠
+.discount {
+  font-size: 2.4vw;
+}
+.discount-prices {
+  font-weight: bold;
+}
+.accounr {
+  float: right;
+  text-align: center;
+  width: 30.66vw;
+  display: block;
+  line-height: 15vw;
+
+  font-weight: bold;
+  background: #02d4d7;
+}
+.accounr a {
+  color: #fff;
+}
+
+.clear::after {
+  content: "";
+  height: 0;
+  display: block;
+  visibility: hidden;
 }
 </style>

@@ -131,25 +131,50 @@
           return JSON.parse(this.$store.state.homeData.SaleList[2].CakeList);
         }
         return [];
-      }
+      },
+      getclassify() {
+        if (this.$store.state.homeData != "") {
+          return this.$store.state.homeData.TopIconList;
+        }
+        return [];
+      },
+      getspecial() {
+        if (this.$store.state.homeData != "") {
+          return this.$store.state.homeData.CenterContentList;
+        }
+        return [];
+      },
+      getwonderfulTime() {
+        if (this.$store.state.homeData != "") {
+          //0/null/undefined/""   []
+          let data=JSON.parse(this.$store.state.homeData.SaleList[0].CakeList.replace(/'/g,"\""));
+          return data; //字符串->对象
+        }
+      },
     },
 
     components: {
       HomeBox
     },
     methods: {
-      goodsT(id) {
-        console.log(id);
-
-        this.$router.push({
-          path: 'goods',
-          query: {
-            id
-          },
-          params: {
-            id
-          }
-        })
+      goodsT(id){
+        this.$router.push({path:'goods',query:{id},params:{id}})
+      },
+      getleisureFood() {
+        if (this.$store.state.homeData != "") {
+          let data=JSON.parse(this.$store.state.homeData.SaleList[1].CakeList.replace(/'/g,"\""));
+          
+          return data;
+        }
+        return [];
+      },
+      geticeCream() {
+        if (this.$store.state.homeData != "") {
+          let data=JSON.parse(this.$store.state.homeData.SaleList[2].CakeList.replace(/'/g,"\""));
+          
+          return data;
+        }
+        return [];
       },
       async getgoodstwo(item) {
         if (item.ActName == "一见倾心") {
@@ -193,8 +218,7 @@
         // this.$router.push({path:'goods',query:{id,brand},params:{id}})
 
       },
-
-    }
+    },
   };
 </script>
 

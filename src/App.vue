@@ -25,7 +25,7 @@
           <router-link to="/shopcar"><img src="./assets/imgs/shopcar.png" alt=""></router-link>
         </el-menu-item></el-col>
         <el-col :span="6"><el-menu-item >
-          <router-link to="/log"><img src="./assets/imgs/user.png" alt=""></router-link>
+          <router-link to="/mine"><img src="./assets/imgs/user.png" alt=""></router-link>
         </el-menu-item></el-col>
       </el-row>
       
@@ -45,13 +45,19 @@
 
     },
     async created() {
+      // let data = await this.getdata(
+      //   "?v=1573608979780&c=NsCakeCenter&m=GetJdListNew"
+      // );
       let data = await this.getdata(
-        "?v=1573608979780&c=NsCakeCenter&m=GetJdListNew"
+        "getdata"
       );
       this.$store.commit("getGoddessData",data)    //提交数据给仓库
 
+      // let homedata = await this.getdata(
+      //   "?v=1573643930562&c=NewIndexController&m=index"
+      // );
       let homedata = await this.getdata(
-        "?v=1573643930562&c=NewIndexController&m=index"
+        "getindex"
       );
       this.$store.commit("getHomeData",homedata)
     //console.log(this.data.data.Tag.cakelist);
