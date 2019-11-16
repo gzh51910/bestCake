@@ -77,8 +77,11 @@ export default {
 
                     if (data.data.status === 1) {
                         let Authrization = data.data.token;
-                        localStorage.setItem('Authrization',Authrization)
+                        localStorage.setItem("Authrization", Authrization);
+
                         let { username } = this.ruleForm;
+                        localStorage.setItem("username", username);
+                        this.$store.commit("pushusername", username);
                         this.$router.replace({
                             path: "/mine",
                             params: { username },
