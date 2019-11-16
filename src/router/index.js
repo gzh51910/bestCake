@@ -13,6 +13,11 @@ import inf from "../page/inf.vue"
 import address from "../page/address.vue"
 
 import comment from "../page/comment.vue"
+ import CarouselShow from "../page/CarouselShow.vue"
+ import CarouselShow2 from "../page/CarouselShow-02.vue"
+ import CarouselShow3 from "../page/CarouselShow-03.vue"
+ import CarouselShow4 from "../page/CarouselShow-04.vue"
+ import PlaceOrder from "../page/PlaceOrder.vue"
 
 
 Vue.use(VueRouter)
@@ -67,6 +72,31 @@ const routes = [{
     path:"/comment",
     name:"comment",
     component:comment
+  },
+  {
+    path:"/CarouselShow",
+    name:"CarouselShow",
+    component:CarouselShow
+  },
+  {
+    path:"/CarouselShow-02",
+    name:"CarouselShow-02",
+    component:CarouselShow2
+  },
+  {
+    path:"/CarouselShow-03",
+    name:"CarouselShow-03",
+    component:CarouselShow3
+  },
+  {
+    path:"/CarouselShow-04",
+    name:"CarouselShow-04",
+    component:CarouselShow4
+  },{
+    
+    path:"/PlaceOrder",
+    name:"PlaceOrder",
+    component:PlaceOrder
   }
 
 ]
