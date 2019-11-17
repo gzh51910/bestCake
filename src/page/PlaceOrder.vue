@@ -4,7 +4,7 @@
         <div class="fanhui"></div>
         <div class="peisong">
             <div class="peisong-1 left">配送方式：</div>
-            <div class="wuliu right"><img style="    height: 2rem;
+            <div class="wuliu right"><img style="height: 2rem;
     margin-top: -0.3rem;" src="http://res.bestcake.com/act/lucky/lucky13.png" alt=""> 物流</div>
             <div class="address left">配送地址：</div>
             <div class="getaddress left">选择配送地址</div>
@@ -35,7 +35,7 @@
             </div>
             <div class="day">
                 <div class="left">配送费：</div>
-                <div class="right">price</div>
+                <div class="right">10￥</div>
             </div>
 
 
@@ -44,19 +44,18 @@
         </div>
         <div class="shangpin">
             <div class="shop_show left">
-                图片
-                <img src="" alt="">
+                <img :src="img" alt="">
             </div>
-            <div class="left" style="width:53%;height:3rem;margin-top:0.3rem">商品名字</div>
-            <div class="left" style="width:53%;height:3rem;margin-top:0.3rem">重量</div>
-            <div class="left" style="width:53%;height:3rem;margin-top:0.3rem">price</div>
+            <div class="left" style="width:53%;height:3rem;margin-top:0.3rem">商品名字：<strong>{{name}}</strong></div>
+            <div class="left" style="width:53%;height:3rem;margin-top:0.3rem">重量：<strong>{{size}}</strong></div>
+            <div class="left" style="width:53%;height:3rem;margin-top:0.3rem">price：<strong>{{price}}</strong></div>
             <div style="margin-top:1rem;float:left" class="day">
                 <div class="left">蛋糕牌：</div>
                 <div class="right">请请添加》</div>
             </div>
             <div class="day">
                 <div class="left"></div>
-                <div class="right">小计：￥ price</div>
+                <div class="right">小计：￥ <strong>{{price*1+10}}</strong></div>
             </div>
 
         </div>
@@ -75,7 +74,7 @@
         <div style="height:5rem"></div>
 <div class="payment" style="z-index:10000">
 <div class="payment_money">
-    <span style="color: rgb(208, 22, 123); font-size: 4.2667vw;">¥158.00</span> 
+    <span style="color: rgb(208, 22, 123); font-size: 4.2667vw;">¥{{price*1+10}}</span> 
     <span style="color: rgb(153, 153, 153); font-size: 3.2vw; margin-left: 2vw;">已优惠¥100.00</span>
 </div>
     <div class="payment_btn">提交订单</div>
@@ -117,7 +116,19 @@
                 value1: '',
                 value2: '',
                 value: '',
+                name:"",
+                img:"",
+                size:"",
+                price:"",
             };
+        },
+        created(){
+            console.log(this.$route);
+            let data=this.$route.query;
+            this.img=data.img;
+            this.size=data.size;
+            this.name=data.name;
+            this.price=data.price;
         }
     };
 </script>
@@ -138,7 +149,9 @@
         background: yellowgreen;
         margin-top: 0.5rem;
     }
-
+    .shop_show img{
+        width: 100%;
+    }
     .fanhui {
         width: 100%;
         height: 3rem;

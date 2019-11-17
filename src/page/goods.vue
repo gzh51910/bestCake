@@ -143,7 +143,7 @@
                 </div>
             </div>
             <div class="purchase-a" ng-click="buyItNow(true)">
-                <div class="purchase-1">立即购买</div>
+                <div class="purchase-1" @click="tobuy()">立即购买</div>
             </div>
             <div class="purchase-b" ng-click="addcart(false)" style="color: rgb(0, 0, 0);">
                 <div class="purchase-2" @click="gouwu(id)">加入购物车</div>
@@ -219,6 +219,14 @@
                     name: 'comment',
                     query: mmm
                 })
+            },
+            tobuy(){
+                this.$router.push({path:"/PlaceOrder",query:{
+                    img:this.lunbo(1,this.nstext.Brand),
+                    name:this.nstext.Name,
+                    size:this.nstext.Size,
+                    price:this.nstext.CurrentPrice
+                }})
             }
         },
         async mounted() {
@@ -244,7 +252,6 @@
                 this.data8 = await this.getdata(
                     `http://localhost:1910/?City=%E6%9D%AD%E5%B7%9E&ProName=${this.$route.query.id}&c=IndexCenter&m=GetjzCakeInfo&v=1573724235797`
                     )
-                console.log(this.data8.data.Tag[0], this.$route.query.id, this.$route.query.brand);
                 this.nstext = this.data8.data.Tag[0]
                 this.zhong = this.data8.data.Tag[0].CakeType
                 this.nstext.Resource = this.data8.data.Tag[0].Resourse
@@ -253,7 +260,6 @@
                 this.data8 = await this.getdata(
 
                     `http://localhost:1910/?Name=${this.$route.query.id}(125mlx4)&c=NsCakeCenter&m=GetRuPCakeByName&v=1573724319821`)
-                console.log(this.data8, this.$route.query.id, this.$route.query.brand);
 
                     // ?Name=麦趣尔一号牧场纯牛奶(250ml×12)&c=NsCakeCenter&m=GetRuPCakeByName&v=1573867403309
                     //`?Name=${this.$route.query.id}&c=NsCakeCenter&m=GetRuPCakeByName&v=1573724319821`)
@@ -261,16 +267,12 @@
 
                 this.nstext = this.data8.data.Tag[0]
                 this.zhong1 = [this.data8.data.Tag[0],this.data8.data.Tag[10]==undefined?0:this.data8.data.Tag[10],this.data8.data.Tag[18]==undefined?0:this.data8.data.Tag[18]]
-            console.log(this.zhong1[2]);
             var ph = []
                 for (let index = 0; index < this.zhong1.length; index++) {
            var p = {}
                    if(this.zhong1[index] !=0){
                        p = this.zhong1[index]
                   ph.push(p)
-               
-                
-                  
                    }
                 
                 }

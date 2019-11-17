@@ -3,13 +3,13 @@
     <!-- 1shoppingCart -->
     <div class="shopCart-list clear">
       <ul ref="wrap">
-        <li v-for="item in shoplist" :key="item.ID">
+        <li v-for="(item,idx) in shoplist" :key="item.ID">
           <!-- (1)购物车内容 -->
 
           <div class="shopCart-content clear">
             <!-- 单选框 -->
             <div class="selected">
-              <img :src="selectimg" alt @click="cartSelected($event)" data-select="true" />
+              <img :src="selectimg" alt @click="cartSelected($event)" data-select="true" :ref="idx"/>
             </div>
             <!-- 商品信息 -->
             <div class="list-product">
@@ -314,8 +314,6 @@ export default {
     // },
     totalPrices() {
       let total = 0;
-      console.log(this, "====");
-
       this.shoplist.forEach(item => {
         total += item.CurrentPrice * item.num;
       });
@@ -340,12 +338,17 @@ export default {
     // }
   },
   created() {
+    
+    
     if (localStorage.getItem("ShoppingCart")) {
       this.datamsg = JSON.parse(localStorage.getItem("ShoppingCart"));
       this.selectnum = this.datamsg.length; //获取目前在购物车的商品数据的数量的长度
     } else {
       this.datamsg = [];
     }
+  },
+  mounted(){
+    console.log(this,"====");
   }
 };
 </script>
