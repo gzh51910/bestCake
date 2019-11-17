@@ -359,7 +359,7 @@
     width: 9.6vw;
     height: 4.8vw;
     position: absolute;
-    top: 5.1vw;
+    top: 3.1vw;
     left: 4.4vw;
     color: #fafafa;
     font-size: 3.2vw;
@@ -372,7 +372,7 @@
   }
 
   .notive-text {
-    margin: 2.6vw 6.4vw 0 16vw;
+    margin: 0.8vw 6.4vw 0 16vw;
     font-size: 3.7334vw;
     line-height: 9.6vw;
   }
@@ -389,9 +389,9 @@
     height: 26.667vw;
     float: left;
     overflow: hidden;
-    padding: 1vw;
-    // margin-bottom: 2.4vw;
-    border-radius: 5vw;
+    // padding: 1vw;
+    margin: 1vw;
+    border-radius: 2vw;
   }
 
   .special li img {

@@ -42,7 +42,9 @@ export default {
     geturl(name) {
       return `https://res.bestcake.com/m-images/ww/${this.type}/${name}.png?v=10`;
     },
+    // 添加商品到购物车（存数据）
     async addtocar(idx) {
+      // 提示信息框
       this.showpop = true;
       setTimeout(() => {
         this.showpop = false;
@@ -61,6 +63,7 @@ export default {
       if (str.indexOf(id) == -1) {
         newdata.num = 1;
         this.arr.unshift(newdata);
+        this.$store.commit("addcartnum");
       } else {
         console.log(123);
 
@@ -208,11 +211,11 @@ li:nth-child(2n + 1) {
   // float: right;
 }
 .pop {
-  width: 30%;
+  width: 40%;
   margin: auto;
-  height: 5vw;
+  height: 11vw;
   line-height: 5vw;
-  padding: 4vw;
+  padding: 3vw;
   color: #666;
   background: rgb(231, 239, 252);
   position: fixed;
@@ -221,4 +224,5 @@ li:nth-child(2n + 1) {
   right: 0;
   border-radius: 5%;
 }
+
 </style>

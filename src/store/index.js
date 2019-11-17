@@ -10,6 +10,7 @@ export default new Vuex.Store({
     operationData: [],
     homeData: [],
     username: localStorage.getItem("username"),
+    num:JSON.parse(localStorage.getItem("ShoppingCart")).length
   },
   mutations: {
     getGoddessData(state, data) {
@@ -27,6 +28,15 @@ export default new Vuex.Store({
     },
     pushusername(state, username) {
       state.username = username;
+    },
+    addcartnum(state){
+      state.num +=1;
+    },
+    deccartnum(state){
+      state.num -=1;
+    },
+    clearcart(state){
+      state.num=0;
     }
 
 

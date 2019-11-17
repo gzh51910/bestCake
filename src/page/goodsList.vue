@@ -18,6 +18,7 @@
           </el-tab-pane>
         </el-tabs>
       </el-tab-pane>
+      
       <!-- 贝式严选 -->
       <el-tab-pane label="贝式严选" name="second" class="manage">
         <el-tabs class="operationMenu" v-model="activeNamethree" @tab-click="handleClick">
