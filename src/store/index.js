@@ -7,29 +7,32 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    operationData:[],
-    homeData:[]
+    operationData: [],
+    homeData: [],
+    username: localStorage.getItem("username"),
   },
   mutations: {
-    getGoddessData(state,data){
+    getGoddessData(state, data) {
       // state.operationData=data.data.Tag.cakelist;
       console.log(data);
-      
-      state.operationData=data.data;
 
-      console.log("operationData",state.operationData);
+      state.operationData = data.data;
+
+      console.log("operationData", state.operationData);
     },
-    getHomeData(state,data){
-      
-      state.homeData=data.data[0].mainresult;
-      console.log("homeData",state.homeData);
+    getHomeData(state, data) {
+
+      state.homeData = data.data[0].mainresult;
+      console.log("homeData", state.homeData);
+    },
+    pushusername(state, username) {
+      state.username = username;
     }
-    
-    
+
+
   },
-  actions: {
-  },
+  actions: {},
   modules: {
-    
+
   }
 })

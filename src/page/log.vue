@@ -78,8 +78,11 @@ export default {
 
                     if (data.data.status === 1) {
                         let Authrization = data.data.token;
-                        localStorage.setItem('Authrization',Authrization)
+                        localStorage.setItem("Authrization", Authrization);
+
                         let { username } = this.ruleForm;
+                        localStorage.setItem("username", username);
+                        this.$store.commit("pushusername", username);
                         this.$router.replace({
                             path: "/mine",
                             params: { username },
@@ -132,7 +135,7 @@ a {
         margin-left: 5.333vw;
     }
     .login-form {
-        margin: 20px 50px 0 25px;
+        margin: 60px 50px 0 25px;
         .el-form-item__label {
             color: #fff;
         }

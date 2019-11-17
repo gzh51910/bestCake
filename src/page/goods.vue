@@ -9,7 +9,7 @@
         </el-carousel>
         <!--蛋糕图片和名称-->
         <div class="name1-11">
-            <div @click="fanhui()"
+            <div class="papa" @click="fanhui()"
                 style="    top: 10vw;
     z-index: 10; right: -0.3vw; border: 0.4vw solid rgb(0, 0, 0);padding: 2vw; border-radius: 5%;position: fixed;background: #333;opacity: 0.2;color: whitesmoke;">
                 <i>返回商品</i>
@@ -68,7 +68,7 @@
                     <img src="https://res.bestcake.com/m-images/ww/detail/evaluate-b.png" class="am-img-responsive"
                         style="height: 4vw;width: 4vw;margin-top: 1.3vw;">
                 </div>
-                <div class="left qfc ng-binding">{{mmm}}</div>
+                <div class="left qfc ng-binding">（{{mmm}}）条</div>
             </div>
         </div>
         <div style="width:100%;height:1vw;clear:both"></div>
@@ -136,7 +136,7 @@
         <div class="am-u-sm-12 clplr bgw mt4"
             style="position: fixed; bottom: 0; left: 0; right: 0; z-index: 99; height: 14.6666vw;">
             <div class="purchase-c">
-                <div class="purchase-c-1 ng-binding price">{{this.price*num4}}.00</div>
+                <div class="purchase-c-1 ng-binding price" style="height: 2rem;">{{this.price*num4}}.00</div>
                 <div class="purchase-c-2">
                     <div class="purchase-c-2-left">已优惠：</div>
                     <div class="purchase-c-2-right ng-binding">0.00</div>
@@ -251,10 +251,33 @@
                 this.nstext.Sweet = this.nstext.CurrentPro.Sweet
             } else if (this.$route.query.brand == "乳品系列") {
                 this.data8 = await this.getdata(
+
                     `http://localhost:1910/?Name=${this.$route.query.id}(125mlx4)&c=NsCakeCenter&m=GetRuPCakeByName&v=1573724319821`)
                 console.log(this.data8, this.$route.query.id, this.$route.query.brand);
+
+                    // ?Name=麦趣尔一号牧场纯牛奶(250ml×12)&c=NsCakeCenter&m=GetRuPCakeByName&v=1573867403309
+                    //`?Name=${this.$route.query.id}&c=NsCakeCenter&m=GetRuPCakeByName&v=1573724319821`)
+                // console.log(this.data8, this.$route.query.id, this.$route.query.brand);
+
                 this.nstext = this.data8.data.Tag[0]
-            }
+                this.zhong1 = [this.data8.data.Tag[0],this.data8.data.Tag[10]==undefined?0:this.data8.data.Tag[10],this.data8.data.Tag[18]==undefined?0:this.data8.data.Tag[18]]
+            console.log(this.zhong1[2]);
+            var ph = []
+                for (let index = 0; index < this.zhong1.length; index++) {
+           var p = {}
+                   if(this.zhong1[index] !=0){
+                       p = this.zhong1[index]
+                  ph.push(p)
+               
+                
+                  
+                   }
+                
+                }
+               
+                    this.zhong = ph
+                     console.log(ph);
+ }
         },
         created() {
             axios.get("http://120.24.166.74:3001/getdetail").then((ppa) => {
@@ -283,4 +306,5 @@
     .active {
         background: pink;
     }
+ 
 </style>

@@ -77,8 +77,8 @@ const routes = [{
     component:comment
   },
   {
-    path:"/CarouselShow",
-    name:"CarouselShow",
+    path:"/CarouselShow-01",
+    name:"CarouselShow-01",
     component:CarouselShow
   },
   {
@@ -137,5 +137,5 @@ router.beforeEach(async function (to, from, next) {
   next()
 })
 
-export default router
 
+export default router
