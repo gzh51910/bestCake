@@ -74,6 +74,7 @@ export default {
                         }
                     );
                     console.log(data);
+                    localStorage.setItem("ShoppingCart",data.data.shopcar)
 
                     if (data.data.status === 1) {
                         let Authrization = data.data.token;

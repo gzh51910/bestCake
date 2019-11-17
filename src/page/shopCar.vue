@@ -178,8 +178,6 @@ export default {
     },
     totalPrices(){
       let total=0;
-      console.log(this.data,"====");
-      
       this.shoplist.forEach((item)=>{
         total+=item.CurrentPrice*item.num;
       })
@@ -194,11 +192,12 @@ export default {
     }
   },
   created() {
-    if(!localStorage.getItem("ShoppingCart")){
-      this.data = JSON.parse(localStorage.getItem("ShoppingCart"));
+    
+    if(localStorage.getItem("ShoppingCart")){
+      this.list = JSON.parse(localStorage.getItem("ShoppingCart"));
     }
     else{
-      this.data=[]
+      this.list=[]
     }
     
   }
