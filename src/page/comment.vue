@@ -67,26 +67,15 @@
 
                 return timer
             }
-
-
         },
         mounted() {
 
         },
         created() {
             this.id = this.$route.query;
-
-            console.log(this.id);
-
-
             axios.get("http://120.24.166.74:3001/getcomment").then((dda) => {
-
                 this.data1 = dda.data
-                console.log("dda:", dda.data[0].CmtTime);
                 this.time = dda.data[0].CmtTime.slice(6, -2)
-                console.log((this.time * 1));
-
-
             })
         },
 

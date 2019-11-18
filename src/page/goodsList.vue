@@ -1,9 +1,9 @@
 <template>
   <div id="goodslist">
-    <el-tabs v-model="activeName" @tab-click="handleClick" id="nav1">
+    <el-tabs v-model="activeName" id="nav1">
       <!-- 自营 -->
       <el-tab-pane label="自营" name="first" class="operation" >
-        <el-tabs class="operationMenu" v-model="activeNametwo" @tab-click="handleClick" id="nav2">
+        <el-tabs class="operationMenu" v-model="activeNametwo"  id="nav2">
           <!-- 女神 -->
           <el-tab-pane label="女神" name="goddess" class="goddess">
             <OpeList :data="goddessdata" type="ns"></OpeList>
@@ -18,9 +18,10 @@
           </el-tab-pane>
         </el-tabs>
       </el-tab-pane>
+      
       <!-- 贝式严选 -->
       <el-tab-pane label="贝式严选" name="second" class="manage">
-        <el-tabs class="operationMenu" v-model="activeNamethree" @tab-click="handleClick">
+        <el-tabs class="operationMenu" v-model="activeNamethree" >
           <!-- 乳品 -->
           <el-tab-pane label="乳品" name="dairy" class="dairy">
             <OpeList :data="dairydata" type="rp"></OpeList>
@@ -56,9 +57,7 @@ export default {
   },
 
   methods: {
-    handleClick(tab, event) {
-      console.log(tab, event);
-    }
+    
   },
   computed: {
     goddessdata() {

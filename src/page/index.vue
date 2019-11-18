@@ -195,7 +195,7 @@
       },
       async getgoodstwo(item) {
         if (item.ActName == "一见倾心") {
-          this.data8 = await this.getdata(`?Name=${item.ActName}&c=NsCakeCenter&m=GetNSCakeByName&v=1573872313488`)
+          this.data8 = await this.getdata(`http://120.24.166.74:3004/?Name=${item.ActName}&c=NsCakeCenter&m=GetNSCakeByName&v=1573872313488`)
           let id = item.ActName,
             brand = this.data8.data.Tag[0].Brand
           this.$router.push({
@@ -211,7 +211,7 @@
         } else if (item.ActName) 
         {
           this.data8 = await this.getdata(
-            `?City=上海&ProName=${item.ActName}&c=Product&m=GetCakeByName&v=1573873228149`)
+            `http://120.24.166.74:3004/?City=上海&ProName=${item.ActName}&c=Product&m=GetCakeByName&v=1573873228149`)
           let id = item.ActName,
             brand = this.data8.data.Tag.infos.Brand
           this.$router.push({
@@ -359,7 +359,7 @@
     width: 9.6vw;
     height: 4.8vw;
     position: absolute;
-    top: 5.1vw;
+    top: 3.1vw;
     left: 4.4vw;
     color: #fafafa;
     font-size: 3.2vw;
@@ -372,7 +372,7 @@
   }
 
   .notive-text {
-    margin: 2.6vw 6.4vw 0 16vw;
+    margin: 0.8vw 6.4vw 0 16vw;
     font-size: 3.7334vw;
     line-height: 9.6vw;
   }
@@ -389,9 +389,9 @@
     height: 26.667vw;
     float: left;
     overflow: hidden;
-    padding: 1vw;
-    // margin-bottom: 2.4vw;
-    border-radius: 5vw;
+    // padding: 1vw;
+    margin: 1vw;
+    border-radius: 2vw;
   }
 
   .special li img {

@@ -123,7 +123,6 @@
             };
         },
         created(){
-            console.log(this.$route);
             let data=this.$route.query;
             this.img=data.img;
             this.size=data.size;

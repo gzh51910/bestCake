@@ -42,7 +42,9 @@ export default {
     geturl(name) {
       return `https://res.bestcake.com/m-images/ww/${this.type}/${name}.png?v=10`;
     },
+    // 添加商品到购物车（存数据）
     async addtocar(idx) {
+      // 提示信息框
       this.showpop = true;
       setTimeout(() => {
         this.showpop = false;
@@ -55,14 +57,16 @@ export default {
       } else {
         this.arr = [];
       }
+
       let newdata = JSON.parse(JSON.stringify(this.data[idx])); //深拷贝（给arr添加属性num）
       let id = newdata.ID;
       let str = JSON.stringify(this.arr);
+
       if (str.indexOf(id) == -1) {
         newdata.num = 1;
         this.arr.unshift(newdata);
+        this.$store.commit("addcartnum");
       } else {
-        console.log(123);
 
         this.arr.forEach(ele => {
           if (ele.ID == id) {
@@ -79,17 +83,10 @@ export default {
         let result = await this.getdata("/checktoken", {
           params: { username, token }
         });
-        console.log(result);
-
         if (result.data.status == 1) {
           let msg = localStorage.getItem("ShoppingCart");
-          let res = await this.postdata("http://120.24.166.74:3001/setshopcart", { msg, username });
-          console.log(res);
-
-          // let shopdata = localStorage.getItem("")
+          await this.postdata("http://120.24.166.74:3001/setshopcart", { msg, username });
         }
-
-        //this.axios.get("120.24.166.74/checktoken",{params:{username,token}})
       }
     },
     goodsT(id, brand) {
@@ -208,11 +205,11 @@ li:nth-child(2n + 1) {
   // float: right;
 }
 .pop {
-  width: 30%;
+  width: 40%;
   margin: auto;
-  height: 5vw;
+  height: 11vw;
   line-height: 5vw;
-  padding: 4vw;
+  padding: 3vw;
   color: #666;
   background: rgb(231, 239, 252);
   position: fixed;
@@ -221,4 +218,5 @@ li:nth-child(2n + 1) {
   right: 0;
   border-radius: 5%;
 }
+
 </style>

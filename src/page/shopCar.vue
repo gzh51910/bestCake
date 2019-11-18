@@ -9,7 +9,7 @@
           <div class="shopCart-content clear">
             <!-- 单选框 -->
             <div class="selected">
-              <img :src="selectimg" alt @click="cartSelected($event)" data-select="true" :ref="idx"/>
+              <img :src="selectimg" alt @click="cartSelected($event)" data-select="true" :ref="idx" />
             </div>
             <!-- 商品信息 -->
             <div class="list-product">
@@ -25,7 +25,7 @@
                     <span class="shopCart-des-size">{{item.Size}}</span>
 
                     <div class="shopCart-des-num">
-                      <span class="num-red" @click="reduceNum(item)">-</span>
+                      <span class="num-red" @click="reduceNum(item,idx)">-</span>
                       <i class="BNUM">{{item.num}}</i>
                       <span class="num-add" @click="addNum(item)">+</span>
                     </div>
@@ -64,7 +64,12 @@
                 {{item.CurrentPrice}}
                 <i>{{item.Size}}</i>
               </span>
-              <img class="shopIcon" src="../assets/imgs/cart_firm_gwc.jpg" alt @click="addCart(item)"/>
+              <img
+                class="shopIcon"
+                src="../assets/imgs/cart_firm_gwc.jpg"
+                alt
+                @click="addCart(item)"
+              />
             </div>
           </li>
           <!-- <li>
@@ -137,7 +142,7 @@
         <div class="totalPrices-td">
           <p class="total">
             合计：
-            <span class="total-prices">{{totalPrices}}</span>
+            <span class="total-prices" ref="selectedPrice">{{totalPrices}}</span>
           </p>
           <p class="discount">
             已优惠：
@@ -161,6 +166,7 @@ export default {
     return {
       datamsg: [],
       arr: [],
+      selectImg: [],
       list: [
         {
           img: "https://res.bestcake.com\\m-images\\cart\\mw_firm_sq.jpg",
@@ -188,11 +194,12 @@ export default {
       selectimg: require("../assets/imgs/cart-mw_firm_duihao_1.jpg"), //选中时的图（初始为默认选中）
       selectnum: 0,
       showpop: false,
+      total: 0
     };
   },
   methods: {
     getListUrl(name, item) {
-      console.log(item);
+      // console.log(item);
 
       if (item.Brand == "卡思客") {
         return `https://res.bestcake.com/m-images/ww/jd/${name}.png?`;
@@ -206,28 +213,35 @@ export default {
         return item.img;
       }
     },
-    reduceNum(item) {
+    reduceNum(item,idx) {
       if (item.num > 0) {
         if (item.num == 1) {
           item.num = 1;
+          this.datamsg.splice(idx,1)
+          console.log("::::::::",this.datamsg,idx);
+          var res = JSON.stringify(this.datamsg)
+          localStorage.setItem("ShoppingCart",res)
+          this.$store.commit("deccartnum")
+
         } else {
           item.num -= 1;
           // item.CurrentPrice=
         }
       }
-      console.log("num-1=", item.num);
+      // console.log("num-1=", item.num);
     },
     addNum(item) {
       if (item.num > 0) {
         item.num++;
       }
-      console.log("num+1=", item.num);
+      // console.log("num+1=", item.num);
     },
     addCart(item) {
-      this.showpop=true;
-      setTimeout(()=>{
-        this.showpop=false
-      },1500)
+      // 添加到购物车提示
+      this.showpop = true;
+      setTimeout(() => {
+        this.showpop = false;
+      }, 1500);
       if (localStorage.getItem("ShoppingCart")) {
         this.arr = JSON.parse(localStorage.getItem("ShoppingCart"));
       } else {
@@ -238,6 +252,8 @@ export default {
       let str = JSON.stringify(this.arr);
       if (str.indexOf(newdata.Name) == -1) {
         this.arr.unshift(newdata);
+        // 
+        this.$store.commit("addcartnum");
       } else {
         this.arr.forEach(ele => {
           if (ele.Name == newdata.Name) {
@@ -254,18 +270,35 @@ export default {
     cartAllSelected(event) {
       if (this.ifselectall) {
         //ifselectall=true
-        // 实现点击时替换不全选的图--模块化引入本地图片路径
+        // 实现点击时替换为不全选的图--模块化引入本地图片路径
+        // this.totalPrices=0;    
+        // console.log("totalPrices==",this.totalPrices);
+        // this.totalPricesDis=0;
+
         event.target.src = require("../assets/imgs/cart-mw_firm_duihao_2.jpg"); //  全选被点击后不勾选，event.target=当前被点击的img
         this.selectimg = require("../assets/imgs/cart-mw_firm_duihao_2.jpg"); //全选不勾选，所有商品也不勾选
         this.ifselectall = !this.ifselectall; //不被勾选，为false
-        console.log(this.$ref);
+        // congsole.log(this.$ref);
+        // 不全选，不计算价格
+        this.selectImg = [];
+        for (let i = 0; i < this.shoplist.length; i++) {
+          this.selectImg.push("false");
+        }
       } else {
         event.target.src = require("../assets/imgs/cart-mw_firm_duihao_1.jpg");
         this.selectimg = require("../assets/imgs/cart-mw_firm_duihao_1.jpg");
         this.ifselectall = !this.ifselectall;
+        // 全选，并计算价格
+        this.selectImg = [];
+        for (let i = 0; i < this.shoplist.length; i++) {
+          this.selectImg.push("true");
+        }
       }
-      console.log("event", event.target.src);
-      console.dir(this.$refs.wrap);
+      // console.log("event", event.target.src);
+      // console.dir(this.$refs.wrap);
+      
+      
+      
     },
     // （2）单选
     cartSelected(event) {
@@ -276,6 +309,7 @@ export default {
         // 判断当前被勾选的单选框的数量=？当前商品数相同，不等则全选框取消勾选
         if (this.selectnum != this.datamsg.length) {
           this.$refs.selectall.src = require("../assets/imgs/cart-mw_firm_duihao_2.jpg"); //全选框
+          // this.ifselectall=false;
         }
         event.target.src = require("../assets/imgs/cart-mw_firm_duihao_2.jpg"); //当前被点击的单选框，自己本身也要取消选中
         event.target.dataset.select = "false"; //此时该单选框为不被选中状态
@@ -285,17 +319,31 @@ export default {
 
         if (this.selectnum == this.datamsg.length) {
           this.$refs.selectall.src = require("../assets/imgs/cart-mw_firm_duihao_1.jpg");
+          // this.ifselectall=true
         }
         event.target.src = require("../assets/imgs/cart-mw_firm_duihao_1.jpg");
         event.target.dataset.select = "true";
       }
+
+
+      // 单选时，计算价格
+      this.selectImg = [];
+      for (var i = 0; i < this.shoplist.length; i++) {
+        this.selectImg.push(this.$refs[i][0].dataset.select);
+      }
+      // console.log(this.selectImg);
     },
-    // （3）清空
+    // （3）清空clesrSelect
     clesrSelect() {
       if (this.ifselectall) {
-        confirm("是否清空")
-        localStorage.setItem("ShoppingCart", "");
-        this.datamsg=[];
+        let msg=confirm("是否清空");
+        if(msg){
+          localStorage.removeItem("ShoppingCart");
+          this.datamsg = [];
+          this.$store.commit("clearcart")
+        }
+        
+
       }
     }
   },
@@ -306,26 +354,75 @@ export default {
     // totalPrices(){
     //   let total=0;
     //   console.log(this.data,"====");
-      
+
     //   this.shoplist.forEach((item)=>{
     //     total+=item.CurrentPrice*item.num;
     //   })
     //   return this.datamsg;
     // },
-    totalPrices() {
-      let total = 0;
-      this.shoplist.forEach(item => {
-        total += item.CurrentPrice * item.num;
-      });
+    // 合計
+    totalPrices:{
+      get(){
+        let total = 0;
 
-      return total.toFixed(2);
+        // this.shoplist.forEach((item,idx) => {
+        //   if(this.selectImg[idx]){
+        //     console.log(this.selectImg[idx]);
+
+        //     total += item.CurrentPrice * item.num;
+        //   }
+
+
+        // if(this.selectImg[0]){
+        //   if(this.selectImg[idx].dataset.select=="true"){
+        //     console.log(this.selectImg[idx].dataset.select,"+++++");
+
+        //     total += item.CurrentPrice * item.num;
+        //   }
+
+        //   // if(this.selectImg[idx].dataset.select=="true"){
+
+        //   // }
+        // }
+
+        // });
+
+        this.selectImg.forEach((ele, idx) => {
+          if (ele == "true") {
+            // console.log(this.shoplist[idx].CurrentPrice * this.shoplist[idx].num,ele);
+            
+            
+            if(this.shoplist[idx]){
+              
+              total += this.shoplist[idx].CurrentPrice * this.shoplist[idx].num;
+            }
+            
+          }
+        });
+
+        return total.toFixed(2);
+      },
+      
+      
     },
-    totalPricesDis() {
-      let discount = 0;
-      this.shoplist.forEach(item => {
-        discount += item.CurrentPrice * item.num * (1 - 0.8);
-      });
-      return discount.toFixed(2);
+    // 优惠
+    totalPricesDis: {
+      get(){
+        let discount = 0;
+        // this.shoplist.forEach(item => {
+        //   discount += item.CurrentPrice * item.num * (1 - 0.8);
+        // });
+        this.selectImg.forEach((ele, idx) => {
+          if (ele == "true") {
+            // console.log(this.shoplist[idx].CurrentPrice * this.shoplist[idx].num, ele);
+            if(this.shoplist[idx]){
+              discount += this.shoplist[idx].CurrentPrice * this.shoplist[idx].num*(1-0.9);
+            }
+          }
+        });
+        return discount.toFixed(2);
+      },
+      
     }
     // aaa(index){
     //   return function totalPrices(){
@@ -347,8 +444,11 @@ export default {
       this.datamsg = [];
     }
   },
-  mounted(){
-    console.log(this,"====");
+
+  mounted() {
+    for (var i = 0; i < this.shoplist.length; i++) {
+      this.selectImg.push(this.$refs[i][0].dataset.select);
+    }
   }
 };
 </script>
@@ -682,11 +782,11 @@ export default {
 }
 // 提示
 .pop {
-  width: 32%;
+  width: 39%;
   margin: auto;
-  height: 5.5vw;
+  height: 12.5vw;
   line-height: 5vw;
-  padding: 4vw;
+  padding: 3.5vw;
   color: #666;
   background: rgb(231, 239, 252);
   position: fixed;

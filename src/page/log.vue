@@ -61,7 +61,7 @@ export default {
         submitForm() {
             //验证整个表单
             this.$refs.regForm.validate(async valid => {
-                console.log(valid);
+             
                 if (valid) {
                     let { username, password } = this.ruleForm;
                     let data = await this.getdata(
@@ -73,7 +73,7 @@ export default {
                             }
                         }
                     );
-                    console.log(data);
+                    
                     localStorage.setItem("ShoppingCart",data.data.shopcar)
 
                     if (data.data.status === 1) {

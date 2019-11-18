@@ -116,7 +116,7 @@ const router = new VueRouter({
 })
 
 router.beforeEach(async function (to, from, next) {
-  console.log(to, from);
+  
   if (to.meta.check) {
     let token = localStorage.getItem("Authrization");
     let username = localStorage.getItem("username");
@@ -127,9 +127,14 @@ router.beforeEach(async function (to, from, next) {
           token
         }
       })
-      console.log(result);
-
-      next()
+   
+      
+      if(result.data.status==1){
+        next()
+      }else{
+        next({path:"/log"})
+      }
+      
     } else {
       next("/log")
     }

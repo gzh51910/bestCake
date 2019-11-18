@@ -1,5 +1,5 @@
 <template>
-    <div style="z-index:10000;position: absolute;">
+    <div style="z-index:30000;position: absolute;">
         <div>
         </div>
         <el-carousel trigger="click" height="300px">
@@ -146,7 +146,7 @@
                 <div class="purchase-1" @click="tobuy()">立即购买</div>
             </div>
             <div class="purchase-b" ng-click="addcart(false)" style="color: rgb(0, 0, 0);">
-                <div class="purchase-2" @click="gouwu(id)">加入购物车</div>
+                <div class="purchase-2" @click="gouwu({id,p,a,num4,nstext,price,mmm,active,zhong,name})">加入购物车</div>
             </div>
         </div>
         <!-- 内容支撑 -->
@@ -170,7 +170,9 @@
                 mmm: 0,
                 active: -1,
                 zhong:{},
-                name:{}
+                name:{},
+                arr:[]
+
             }
         },
         methods: {
@@ -178,18 +180,66 @@
                 return `https://res.bestcake.com/m-images/ww/jz/tiandu_${this.nstext.Sweet}.png`
             },
             fanhui() {
-                console.log(11111);
                 this.$router.push({
                     path: 'goodsList'
                 })
             },
-            gouwu(id) {
-                this.$router.push({
-                    path: 'shopcar',
-                    query: {
-                        id
+            async gouwu(msg) {
+                if(this.active>=0){
+                    let item={
+                        img:this.lunbo(1, msg.nstext.Brand),
+                        Brand:msg.nstext.Brand,
+                        CategoryName:msg.nstext.CategoryName,
+                        Name:msg.nstext.Name,
+                        Sweet:msg.nstext.Sweet,
+                        size:msg.zhong[this.active].Size,
+                        num:this.num4,
+                        ID:msg.zhong[this.active].Id,
+                        CurrentPrice:this.price
+                    };
+
+                    if (localStorage.getItem("ShoppingCart")){
+                        this.arr = JSON.parse(localStorage.getItem("ShoppingCart"));
+                    } else {
+                        this.arr = [];
                     }
-                })
+                    
+                    let newdata = JSON.parse(JSON.stringify(item)); //深拷贝（给arr添加属性num）
+                    let id = newdata.ID;
+                    let str = JSON.stringify(this.arr);
+
+                    if (str.indexOf(id) == -1) {
+                        newdata.num = 1;
+                        this.arr.unshift(newdata);
+                        this.$store.commit("addcartnum");
+                    } else {
+
+                        this.arr.forEach(ele => {
+                            if (ele.ID == id) {
+                                ele.num += 1;
+                            }
+                        });
+                    }
+                    //把该商品数据存起来
+                    localStorage.setItem("ShoppingCart", JSON.stringify(this.arr)); //把数组-》对象
+                    this.$router.push({
+                        path: 'shopcar',
+                        query: {
+                            id
+                        }
+                    })
+                    let username = localStorage.getItem("username");
+                    let token = localStorage.getItem("Authrization");
+                    if (username && token) {
+                        let result = await this.getdata("/checktoken", {
+                            params: { username, token }
+                        });
+                        if (result.data.status == 1) {
+                            let msg = localStorage.getItem("ShoppingCart");
+                            await this.postdata("http://120.24.166.74:3001/setshopcart", { msg, username });
+                        }
+                    }
+                }
             },
             lunbo(idp, ppp) {
                 if (ppp == "女神系列") {
@@ -214,7 +264,7 @@
                 }
             },
             comment_one(mmm) {
-                console.log(mmm);
+      
                 this.$router.push({
                     name: 'comment',
                     query: mmm
@@ -230,10 +280,9 @@
             }
         },
         async mounted() {
-            console.log(this.$route);
             
             if (this.$route.query.brand == "女神系列") {
-                this.data8 = await this.getdata(`http://localhost:1910/?Name=${this.$route.query.id}&c=NsCakeCenter&m=GetNSCakeByName`)
+                this.data8 = await this.getdata(`http://120.24.166.74:3004/?Name=${this.$route.query.id}&c=NsCakeCenter&m=GetNSCakeByName`)
                 this.nstext = this.data8.data.Tag[0]
                 this.nstext.Resource = this.data8.data.Tag[0].Resource
                 this.nstext.Sweet = this.data8.data.Tag[0].Sweet
@@ -242,7 +291,7 @@
                 this.price = this.data8.data.Tag[0].CurrentPrice
             } else if (this.$route.query.brand == "卡思客") {
                 this.data8 = await this.getdata(
-                    `http://localhost:1910/?City=杭州&ProName=${this.$route.query.id}&c=Product&m=GetCakeByName&v=1573724141778`)
+                    `http://120.24.166.74:3004/?City=杭州&ProName=${this.$route.query.id}&c=Product&m=GetCakeByName&v=1573724141778`)
                 this.zhong = this.data8.data.Tag.infos.CakeType
                 this.nstext = this.data8.data.Tag.infos
                 this.nstext.Resource = this.data8.data.Tag.infos.Resourse
@@ -250,7 +299,7 @@
                 this.nstext.KeepFresh = this.nstext.KeepFresh
             } else if (this.$route.query.brand == "极致蛋糕") {
                 this.data8 = await this.getdata(
-                    `http://localhost:1910/?City=%E6%9D%AD%E5%B7%9E&ProName=${this.$route.query.id}&c=IndexCenter&m=GetjzCakeInfo&v=1573724235797`
+                    `http://120.24.166.74:3004/?City=%E6%9D%AD%E5%B7%9E&ProName=${this.$route.query.id}&c=IndexCenter&m=GetjzCakeInfo&v=1573724235797`
                     )
                 this.nstext = this.data8.data.Tag[0]
                 this.zhong = this.data8.data.Tag[0].CakeType
@@ -259,7 +308,7 @@
             } else if (this.$route.query.brand == "乳品系列") {
                 this.data8 = await this.getdata(
 
-                    `http://localhost:1910/?Name=${this.$route.query.id}(125mlx4)&c=NsCakeCenter&m=GetRuPCakeByName&v=1573724319821`)
+                    `http://120.24.166.74:3004/?Name=${this.$route.query.id}(125mlx4)&c=NsCakeCenter&m=GetRuPCakeByName&v=1573724319821`)
 
                     // ?Name=麦趣尔一号牧场纯牛奶(250ml×12)&c=NsCakeCenter&m=GetRuPCakeByName&v=1573867403309
                     //`?Name=${this.$route.query.id}&c=NsCakeCenter&m=GetRuPCakeByName&v=1573724319821`)
@@ -278,7 +327,7 @@
                 }
                
                     this.zhong = ph
-                     console.log(ph);
+               
  }
         },
         created() {
