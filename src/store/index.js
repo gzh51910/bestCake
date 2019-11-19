@@ -2,12 +2,13 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 
 Vue.use(Vuex)
+let data=localStorage.getItem("ShoppingCart")?JSON.parse(localStorage.getItem("ShoppingCart")).length:0
 export default new Vuex.Store({
   state: {
     operationData: [],
     homeData: [],
     username: localStorage.getItem("username"),
-    num:localStorage.getItem("ShoppingCart")?JSON.parse(localStorage.getItem("ShoppingCart")).length:0
+    num:data
   },
   mutations: {
     getGoddessData(state, data) {

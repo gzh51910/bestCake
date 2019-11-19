@@ -218,7 +218,6 @@ export default {
         if (item.num == 1) {
           item.num = 1;
           this.datamsg.splice(idx,1)
-          console.log("::::::::",this.datamsg,idx);
           var res = JSON.stringify(this.datamsg)
           localStorage.setItem("ShoppingCart",res)
           this.$store.commit("deccartnum")
@@ -283,6 +282,8 @@ export default {
         this.selectImg = [];
         for (let i = 0; i < this.shoplist.length; i++) {
           this.selectImg.push("false");
+          this.$refs[i][0].dataset.select="false";
+          this.selectnum=0;
         }
       } else {
         event.target.src = require("../assets/imgs/cart-mw_firm_duihao_1.jpg");
@@ -292,7 +293,9 @@ export default {
         this.selectImg = [];
         for (let i = 0; i < this.shoplist.length; i++) {
           this.selectImg.push("true");
+          this.$refs[i][0].dataset.select="true"
         }
+        this.selectnum=this.datamsg.length;
       }
       // console.log("event", event.target.src);
       // console.dir(this.$refs.wrap);
@@ -302,15 +305,19 @@ export default {
     },
     // （2）单选
     cartSelected(event) {
+      
       if (event.target.dataset.select == "true") {
         //自定义属性data-select==select,显示当前单选框是否为勾选，true为勾选
         // 点击被勾选的单选框，即取消勾选，计算当前被勾选中的单选框数量
         this.selectnum--;
+        
+        
         // 判断当前被勾选的单选框的数量=？当前商品数相同，不等则全选框取消勾选
         if (this.selectnum != this.datamsg.length) {
           this.$refs.selectall.src = require("../assets/imgs/cart-mw_firm_duihao_2.jpg"); //全选框
           // this.ifselectall=false;
         }
+        
         event.target.src = require("../assets/imgs/cart-mw_firm_duihao_2.jpg"); //当前被点击的单选框，自己本身也要取消选中
         event.target.dataset.select = "false"; //此时该单选框为不被选中状态
       } else {
