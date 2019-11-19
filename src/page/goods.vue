@@ -1,5 +1,5 @@
 <template>
-    <div style="z-index:30000;position: absolute;">
+    <div style="z-index:30000;position: absolute;padding-bottom:100px">
         <div>
         </div>
         <el-carousel trigger="click" height="300px">
@@ -275,7 +275,8 @@
                     img:this.lunbo(1,this.nstext.Brand),
                     name:this.nstext.Name,
                     size:this.nstext.Size,
-                    price:this.nstext.CurrentPrice
+                    price:this.nstext.CurrentPrice,
+                    backpath:window.location.href
                 }})
             }
         },

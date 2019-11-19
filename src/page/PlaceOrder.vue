@@ -1,6 +1,6 @@
 <template>
     <div style="background:#eee;width:100%;height:100%">
-        <div class="fanhui heard">&nbsp;&nbsp;&nbsp;&nbsp;《&nbsp;返回</div>
+        <div class="fanhui heard" @click="back">&nbsp;&nbsp;&nbsp;&nbsp;《&nbsp;返回</div>
         <div class="fanhui"></div>
         <div class="peisong">
             <div class="peisong-1 left">配送方式：</div>
@@ -43,7 +43,7 @@
 
         </div>
         <div class="shangpin">
-            <div class="shop_show left">
+            <div class="shop_show">
                 <img :src="img" alt="">
             </div>
             <div class="left" style="width:53%;height:3rem;margin-top:0.3rem">商品名字：<strong>{{name}}</strong></div>
@@ -72,7 +72,7 @@
         <div class="peisong-time" style="height: 4rem;">
         </div>
         <div style="height:5rem"></div>
-<div class="payment" style="z-index:10000">
+<div class="payment" style="z-index:30000">
 <div class="payment_money">
     <span style="color: rgb(208, 22, 123); font-size: 4.2667vw;">¥{{price*1+10}}</span> 
     <span style="color: rgb(153, 153, 153); font-size: 3.2vw; margin-left: 2vw;">已优惠¥100.00</span>
@@ -122,6 +122,11 @@
                 price:"",
             };
         },
+        methods:{
+            back(){
+                window.location.href=this.$route.query.backpath;
+            }
+        },
         created(){
             let data=this.$route.query;
             this.img=data.img;
@@ -147,6 +152,8 @@
         height: 10rem;
         background: yellowgreen;
         margin-top: 0.5rem;
+        margin-left:2rem;
+        float: left;
     }
     .shop_show img{
         width: 100%;
@@ -197,7 +204,8 @@
 
     .left {
         float: left;
-        margin-left: 2rem;
+        padding-left: 2rem;
+        box-sizing: border-box;
     }
 
     .right {

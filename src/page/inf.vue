@@ -11,14 +11,14 @@
                 </el-table-column>
                 <el-table-column prop="phone" label="联系电话" width="90">
                 </el-table-column>
-                <el-table-column prop="address" label="家庭地址">
+                <el-table-column prop="place" label="家庭地址">
                 </el-table-column>
             </el-table>
         </div>
 
         <div class="inf-foot">
             <router-link to="/address">
-                <div class="btn">
+                <div class="btn" >
                     新增地址
                 </div>
             </router-link>
@@ -29,16 +29,22 @@
 export default {
     data() {
         return {
-            tableData: [
-                {
-                    name: "老谢",
-                    phone: "87563222",
-                    address: "上海市普陀区金沙江路 1518 弄"
-                }
-            ]
+            
         };
     },
-    methods: {}
+    computed:{
+        tableData(){
+            if(typeof this.$store.state.place=="string"){
+                return JSON.parse(this.$store.state.place)
+            }
+            
+            return this.$store.state.place
+        }
+    },
+    methods: {
+        
+    },
+    
 };
 </script>
 <style lang="scss" scoped>

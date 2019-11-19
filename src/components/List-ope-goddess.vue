@@ -1,6 +1,6 @@
 <template>
   <div>
-    <ul>
+    <ul style="margin-bottom:100px">
       <li v-for="(item,idx) in data" :key="item.ID" @click="goodsT(item.Name,item.Brand)">
         <!-- <img src="https://res.bestcake.com/m-images/ww/ns/许愿天使3.2(月饼兑换款).jpg?v=10" class="am-img-responsive"> -->
         <div class="listImg">

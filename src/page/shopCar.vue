@@ -251,7 +251,7 @@ export default {
       let str = JSON.stringify(this.arr);
       if (str.indexOf(newdata.Name) == -1) {
         this.arr.unshift(newdata);
-        // 
+        this.selectImg.push("true") 
         this.$store.commit("addcartnum");
       } else {
         this.arr.forEach(ele => {
@@ -348,9 +348,8 @@ export default {
           localStorage.removeItem("ShoppingCart");
           this.datamsg = [];
           this.$store.commit("clearcart")
+          this.selectImg=[];
         }
-        
-
       }
     }
   },
@@ -372,35 +371,12 @@ export default {
       get(){
         let total = 0;
 
-        // this.shoplist.forEach((item,idx) => {
-        //   if(this.selectImg[idx]){
-        //     console.log(this.selectImg[idx]);
-
-        //     total += item.CurrentPrice * item.num;
-        //   }
-
-
-        // if(this.selectImg[0]){
-        //   if(this.selectImg[idx].dataset.select=="true"){
-        //     console.log(this.selectImg[idx].dataset.select,"+++++");
-
-        //     total += item.CurrentPrice * item.num;
-        //   }
-
-        //   // if(this.selectImg[idx].dataset.select=="true"){
-
-        //   // }
-        // }
-
-        // });
-
         this.selectImg.forEach((ele, idx) => {
           if (ele == "true") {
             // console.log(this.shoplist[idx].CurrentPrice * this.shoplist[idx].num,ele);
             
             
             if(this.shoplist[idx]){
-              
               total += this.shoplist[idx].CurrentPrice * this.shoplist[idx].num;
             }
             

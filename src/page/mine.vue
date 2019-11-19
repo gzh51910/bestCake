@@ -76,7 +76,7 @@ export default {
         logOut() {
             localStorage.clear('Authrization');
             this.$router.replace('/log');
-
+            this.$store.commit("updatanum")
         }
     }
 };
@@ -140,6 +140,8 @@ html {
             width: 100%;
             overflow: hidden;
             align-items: center;
+            line-height: 40px;
+            font-size: 18px;
             .top {
                 width: 100%;
                 display: flex;

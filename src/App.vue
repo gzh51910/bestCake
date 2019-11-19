@@ -70,6 +70,16 @@ export default {
     let homedata = await this.getdata("getindex");
     this.$store.commit("getHomeData", homedata);
     //console.log(this.data.data.Tag.cakelist);
+    let place = await this.getdata(
+      "http://118.31.77.168:3001/getplace",
+      {
+          params: {
+              username:this.$store.state.username,
+          }
+      }
+    );
+    
+    this.$store.commit("pushplace",place.data)
   }
 };
 </script>

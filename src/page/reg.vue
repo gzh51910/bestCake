@@ -121,7 +121,10 @@ export default {
         resetForm() {
             this.$refs.regForm.resetFields();
         }
-    }
+    },
+    async mounted() {
+        
+    },
 };
 </script>
 <style lang="scss">

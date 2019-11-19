@@ -127,7 +127,8 @@ router.beforeEach(async function (to, from, next) {
           token
         }
       })
-   
+      console.log(result.data.place);
+      
       
       if(result.data.status==1){
         next()

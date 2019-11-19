@@ -83,11 +83,13 @@ export default {
                         let { username } = this.ruleForm;
                         localStorage.setItem("username", username);
                         this.$store.commit("pushusername", username);
+                        this.$store.commit("pushplace",JSON.parse(data.data.place))
                         this.$router.replace({
                             path: "/mine",
                             params: { username },
                             query: { username }
                         });
+                        this.$store.commit("updatanum")
                     } else {
                         alert(data.data.msg);
                     }

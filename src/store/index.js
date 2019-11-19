@@ -2,13 +2,14 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 
 Vue.use(Vuex)
-let data=localStorage.getItem("ShoppingCart")?JSON.parse(localStorage.getItem("ShoppingCart")).length:0
+
 export default new Vuex.Store({
   state: {
     operationData: [],
     homeData: [],
     username: localStorage.getItem("username"),
-    num:data
+    num:localStorage.getItem("ShoppingCart")?JSON.parse(localStorage.getItem("ShoppingCart")).length:0,
+    place:[]
   },
   mutations: {
     getGoddessData(state, data) {
@@ -31,9 +32,18 @@ export default new Vuex.Store({
     },
     clearcart(state){
       state.num=0;
+    },
+    updatanum(state){
+      state.num=localStorage.getItem("ShoppingCart")?JSON.parse(localStorage.getItem("ShoppingCart")).length:0
+    },
+    pushplace(state,data){
+      if(data.map){
+        state.place=data
+      }else{
+        state.place.push(data)
+      }
+      
     }
-
-
   },
   actions: {},
   modules: {
