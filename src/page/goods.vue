@@ -236,7 +236,7 @@
                         });
                         if (result.data.status == 1) {
                             let msg = localStorage.getItem("ShoppingCart");
-                            await this.postdata("http://120.24.166.74:3001/setshopcart", { msg, username });
+                            await this.postdata("http://118.31.77.168:3001/setshopcart", { msg, username });
                         }
                     }
                 }
@@ -282,7 +282,7 @@
         async mounted() {
             
             if (this.$route.query.brand == "女神系列") {
-                this.data8 = await this.getdata(`http://120.24.166.74:3004/?Name=${this.$route.query.id}&c=NsCakeCenter&m=GetNSCakeByName`)
+                this.data8 = await this.getdata(`http://118.31.77.168:3004/?Name=${this.$route.query.id}&c=NsCakeCenter&m=GetNSCakeByName`)
                 this.nstext = this.data8.data.Tag[0]
                 this.nstext.Resource = this.data8.data.Tag[0].Resource
                 this.nstext.Sweet = this.data8.data.Tag[0].Sweet
@@ -291,7 +291,7 @@
                 this.price = this.data8.data.Tag[0].CurrentPrice
             } else if (this.$route.query.brand == "卡思客") {
                 this.data8 = await this.getdata(
-                    `http://120.24.166.74:3004/?City=杭州&ProName=${this.$route.query.id}&c=Product&m=GetCakeByName&v=1573724141778`)
+                    `http://118.31.77.168:3004/?City=杭州&ProName=${this.$route.query.id}&c=Product&m=GetCakeByName&v=1573724141778`)
                 this.zhong = this.data8.data.Tag.infos.CakeType
                 this.nstext = this.data8.data.Tag.infos
                 this.nstext.Resource = this.data8.data.Tag.infos.Resourse
@@ -299,7 +299,7 @@
                 this.nstext.KeepFresh = this.nstext.KeepFresh
             } else if (this.$route.query.brand == "极致蛋糕") {
                 this.data8 = await this.getdata(
-                    `http://120.24.166.74:3004/?City=%E6%9D%AD%E5%B7%9E&ProName=${this.$route.query.id}&c=IndexCenter&m=GetjzCakeInfo&v=1573724235797`
+                    `http://118.31.77.168:3004/?City=%E6%9D%AD%E5%B7%9E&ProName=${this.$route.query.id}&c=IndexCenter&m=GetjzCakeInfo&v=1573724235797`
                     )
                 this.nstext = this.data8.data.Tag[0]
                 this.zhong = this.data8.data.Tag[0].CakeType
@@ -308,7 +308,7 @@
             } else if (this.$route.query.brand == "乳品系列") {
                 this.data8 = await this.getdata(
 
-                    `http://120.24.166.74:3004/?Name=${this.$route.query.id}(125mlx4)&c=NsCakeCenter&m=GetRuPCakeByName&v=1573724319821`)
+                    `http://118.31.77.168:3004/?Name=${this.$route.query.id}(125mlx4)&c=NsCakeCenter&m=GetRuPCakeByName&v=1573724319821`)
 
                     // ?Name=麦趣尔一号牧场纯牛奶(250ml×12)&c=NsCakeCenter&m=GetRuPCakeByName&v=1573867403309
                     //`?Name=${this.$route.query.id}&c=NsCakeCenter&m=GetRuPCakeByName&v=1573724319821`)
@@ -331,7 +331,7 @@
  }
         },
         created() {
-            axios.get("http://120.24.166.74:3001/getdetail").then((ppa) => {
+            axios.get("http://118.31.77.168:3001/getdetail").then((ppa) => {
                 this.p = ppa.data;
                 this.id = this.$route.query.id
                 for (let index = 0; index < ppa.data[1].length; index++) {
@@ -340,7 +340,7 @@
                     }
                 }
             })
-            axios.get("http://120.24.166.74:3001/getcomment").then((dda) => {function number(max, min) {
+            axios.get("http://118.31.77.168:3001/getcomment").then((dda) => {function number(max, min) {
                 dda
                     return parseInt(Math.random() * (max - min + 1) + min, 10);
                 }

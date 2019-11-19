@@ -195,7 +195,7 @@
       },
       async getgoodstwo(item) {
         if (item.ActName == "一见倾心") {
-          this.data8 = await this.getdata(`http://120.24.166.74:3004/?Name=${item.ActName}&c=NsCakeCenter&m=GetNSCakeByName&v=1573872313488`)
+          this.data8 = await this.getdata(`http://118.31.77.168:3004/?Name=${item.ActName}&c=NsCakeCenter&m=GetNSCakeByName&v=1573872313488`)
           let id = item.ActName,
             brand = this.data8.data.Tag[0].Brand
           this.$router.push({
@@ -211,7 +211,7 @@
         } else if (item.ActName) 
         {
           this.data8 = await this.getdata(
-            `http://120.24.166.74:3004/?City=上海&ProName=${item.ActName}&c=Product&m=GetCakeByName&v=1573873228149`)
+            `http://118.31.77.168:3004/?City=上海&ProName=${item.ActName}&c=Product&m=GetCakeByName&v=1573873228149`)
           let id = item.ActName,
             brand = this.data8.data.Tag.infos.Brand
           this.$router.push({

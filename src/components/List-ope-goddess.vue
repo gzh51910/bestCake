@@ -85,7 +85,7 @@ export default {
         });
         if (result.data.status == 1) {
           let msg = localStorage.getItem("ShoppingCart");
-          await this.postdata("http://120.24.166.74:3001/setshopcart", { msg, username });
+          await this.postdata("http://118.31.77.168:3001/setshopcart", { msg, username });
         }
       }
     },

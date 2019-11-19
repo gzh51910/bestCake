@@ -65,7 +65,7 @@ export default {
                 if (valid) {
                     let { username, password } = this.ruleForm;
                     let data = await this.getdata(
-                        "http://120.24.166.74:3001/login",
+                        "http://118.31.77.168:3001/login",
                         {
                             params: {
                                 username,

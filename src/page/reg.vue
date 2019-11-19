@@ -10,6 +10,9 @@
                 
             </div>
         </div>
+
+
+        <TodoList />
         <div class="reg-top">
             免费注册
         </div>
@@ -97,7 +100,7 @@ export default {
                 if (valid) {
                     let { username, password } = this.ruleForm;
                     let data = await this.postdata(
-                        "http://120.24.166.74:3001/register",
+                        "http://118.31.77.168:3001/register",
                         {
                             username,
                             password

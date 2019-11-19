@@ -73,7 +73,7 @@
         },
         created() {
             this.id = this.$route.query;
-            axios.get("http://120.24.166.74:3001/getcomment").then((dda) => {
+            axios.get("http://118.31.77.168:3001/getcomment").then((dda) => {
                 this.data1 = dda.data
                 this.time = dda.data[0].CmtTime.slice(6, -2)
             })

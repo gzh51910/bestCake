@@ -19,7 +19,6 @@ export default new Vuex.Store({
     getHomeData(state, data) {
 
       state.homeData = data.data[0].mainresult;
-      console.log("homeData", state.homeData);
     },
     pushusername(state, username) {
       state.username = username;
