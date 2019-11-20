@@ -79,11 +79,10 @@ export default {
                     if (data.data.status === 1) {
                         let Authrization = data.data.token;
                         localStorage.setItem("Authrization", Authrization);
-
                         let { username } = this.ruleForm;
                         localStorage.setItem("username", username);
                         this.$store.commit("pushusername", username);
-                        this.$store.commit("pushplace",JSON.parse(data.data.place))
+                        this.$store.commit("pushplace",typeof data.data.place=="string"?JSON.parse(data.data.place):data.data.place)
                         this.$router.replace({
                             path: "/mine",
                             params: { username },
