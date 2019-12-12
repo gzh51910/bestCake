@@ -435,7 +435,7 @@ export default {
   }
 };
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 // shopCart
 .shopCart {
   width: 100%;

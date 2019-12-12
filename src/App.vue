@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" ref="wrapper" :style="{height:getheight+'px'}">
     <router-view></router-view>
 
     <el-menu
@@ -12,7 +12,7 @@
     >
       <el-row type="flex" class="row-bg">
         <el-col :span="6">
-          <el-menu-item>
+          <el-menu-item >
             <router-link to="/">
               <img src="./assets/imgs/home.png" alt="home" />
             </router-link>
@@ -50,23 +50,23 @@
   </div>
 </template>
 <script>
+import Vue from 'vue'
+import { Menu, Row,Col,MenuItem } from 'element-ui';
+import 'element-ui/lib/theme-chalk/menu.css'
+import 'element-ui/lib/theme-chalk/row.css'
+import 'element-ui/lib/theme-chalk/col.css'
+import 'element-ui/lib/theme-chalk/menu-item.css'
+Vue.use(Menu)
+Vue.use(Row)
+Vue.use(Col)
+Vue.use(MenuItem)
 export default {
-  data() {
-    return {
-    
-    };
+  computed:{
+    getheight(){
+      return window.innerHeight
+    }
   },
-  methods: {},
   async created() {
-    // let data = await this.getdata(
-    //   "?v=1573608979780&c=NsCakeCenter&m=GetJdListNew"
-    // );
-    let data = await this.getdata("getdata");
-    this.$store.commit("getGoddessData", data); //提交数据给仓库
-
-    // let homedata = await this.getdata(
-    //   "?v=1573643930562&c=NewIndexController&m=index"
-    // );
     let homedata = await this.getdata("getindex");
     this.$store.commit("getHomeData", homedata);
     //console.log(this.data.data.Tag.cakelist);
@@ -80,11 +80,25 @@ export default {
     );
     
     this.$store.commit("pushplace",place.data)
+  },
+  mounted(){
+    // this.$nextTick(() => {
+    //     this.scroll = new BScroll(this.$refs.wrapper, {
+    //       scrollY: true, 
+    //       scrollX: false,
+    //       mouseWheel: true,
+    //       click: true,
+    //       taps: true
+    //     })
+    // })
   }
 };
 </script>
 
 <style lang="scss" scoped>
+// #app{
+//   height: 700px;
+// }
 .el-menu-demo {
   position: fixed !important;
   bottom: 0;
@@ -169,5 +183,11 @@ font{
   white-space: nowrap;
   border: 1px solid #fff;
   z-index: 20000
+}
+ul,li{
+  list-style-type: none;
+}
+.row-bg{
+  z-index: 10000;
 }
 </style>

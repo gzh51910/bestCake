@@ -2,27 +2,45 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import home from "../page"
-import goodslist from "../page/goodsList.vue"
-import shopcar from "../page/shopCar.vue"
-import log from "../page/log.vue"
-import goods from "../page/goods.vue"
+// import goodslist from "../page/goodsList.vue"
+// import shopcar from "../page/shopCar.vue"
+// import log from "../page/log.vue"
+// import goods from "../page/goods.vue"
 
-import reg from "../page/reg.vue"
-import mine from "../page/mine.vue"
-import Myorder from "../page/Myorder.vue"
-import inf from "../page/inf.vue"
-import address from "../page/address.vue"
+// import reg from "../page/reg.vue"
+// import mine from "../page/mine.vue"
+// import Myorder from "../page/Myorder.vue"
+// import inf from "../page/inf.vue"
+// import address from "../page/address.vue"
 
-import comment from "../page/comment.vue"
- import CarouselShow from "../page/CarouselShow.vue"
- import CarouselShow2 from "../page/CarouselShow-02.vue"
- import CarouselShow3 from "../page/CarouselShow-03.vue"
- import CarouselShow4 from "../page/CarouselShow-04.vue"
- import PlaceOrder from "../page/PlaceOrder.vue"
+// import comment from "../page/comment.vue"
+// import CarouselShow from "../page/CarouselShow.vue"
+// import CarouselShow2 from "../page/CarouselShow-02.vue"
+// import CarouselShow3 from "../page/CarouselShow-03.vue"
+// import CarouselShow4 from "../page/CarouselShow-04.vue"
+// import PlaceOrder from "../page/PlaceOrder.vue"
+const goodslist = ()=>import("../page/goodsList.vue")
+const shopcar = ()=>import("../page/shopCar.vue")
+const log = ()=>import("../page/log.vue")
+const goods = ()=>import("../page/goods.vue")
+
+const reg = ()=>import("../page/reg.vue")
+const mine = ()=>import("../page/mine.vue")
+const Myorder = ()=>import("../page/Myorder.vue")
+const inf = ()=>import("../page/inf.vue")
+const address = ()=>import("../page/address.vue")
+
+const comment = ()=>import("../page/comment.vue")
+const CarouselShow = ()=>import("../page/CarouselShow.vue")
+const CarouselShow2 = ()=>import("../page/CarouselShow-02.vue")
+const CarouselShow3 = ()=>import("../page/CarouselShow-03.vue")
+const CarouselShow4 = ()=>import("../page/CarouselShow-04.vue")
+const PlaceOrder = ()=>import("../page/PlaceOrder.vue")
 
 Vue.use(VueRouter);
 
-const routes = [{
+const routes = [
+  {
     path: "/",
     component: home
   },
@@ -38,10 +56,6 @@ const routes = [{
     path: "/log",
     component: log,
 
-  },
-  {
-    path: "/goods",
-    component: goods
   },
   {
     path: "/reg",
@@ -101,11 +115,6 @@ const routes = [{
     name:"PlaceOrder",
     component:PlaceOrder
   },
-  {
-    path: "/comment",
-    name: "comment",
-    component: comment
-  }
 
 ]
 
@@ -127,8 +136,6 @@ router.beforeEach(async function (to, from, next) {
           token
         }
       })
-      console.log(result.data.place);
-      
       
       if(result.data.status==1){
         next()

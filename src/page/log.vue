@@ -34,6 +34,20 @@
     </div>
 </template>
 <script>
+import Vue from 'vue'
+import { Form, FormItem,Input,Button,Checkbox } from 'element-ui';
+import 'element-ui/lib/theme-chalk/form.css'
+import 'element-ui/lib/theme-chalk/form-item.css'
+import 'element-ui/lib/theme-chalk/input.css'
+import 'element-ui/lib/theme-chalk/button.css'
+import 'element-ui/lib/theme-chalk/checkbox.css'
+
+Vue.use(Form)
+Vue.use(FormItem)
+Vue.use(Input)
+Vue.use(Button)
+Vue.use(Checkbox)
+
 export default {
     data() {
         return {
@@ -100,7 +114,7 @@ export default {
     }
 };
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 li {
     list-style: none;
 }

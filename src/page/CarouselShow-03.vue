@@ -44,41 +44,14 @@
     </div>
 </template>
 <script>
-  import axios from "axios"
-    import Vue from "vue"
-    Vue.use(axios)
+ 
+  
 export default {
-    data() {
-        return {
-            
-        }
-    }, methods: {
-
-
-    },mounted() {
-        
-    },created() {
-      
-        
-    },
-
-
-
-
+    
     
 }
 </script>
-
-
-
-
-
-
-
-
-
-
-<style lang="css">
+<style lang="css" scoped>
 @import 'https://res.bestcake.com/css-2/ui/ui.min.css?v=20170710';
 @import 'https://res.bestcake.com/css/vercode.css';
 @import 'https://res.bestcake.com/m-images/new/login.css?v=20190108';

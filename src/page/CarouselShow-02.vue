@@ -64,7 +64,7 @@ export default {
     
 }
 </script>
-<style lang="css">
+<style lang="css" scoped>
 @import 'https://res.bestcake.com/css-2/ui/ui.min.css?v=20170710';
 @import 'https://res.bestcake.com/css/vercode.css';
 @import 'https://res.bestcake.com/m-images/new/login.css?v=20190108';

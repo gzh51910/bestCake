@@ -36,6 +36,16 @@
     </div>
 </template>
 <script>
+import Vue from 'vue'
+import { Form, FormItem,Input,Button } from 'element-ui';
+import 'element-ui/lib/theme-chalk/form.css'
+import 'element-ui/lib/theme-chalk/form-item.css'
+import 'element-ui/lib/theme-chalk/input.css'
+import 'element-ui/lib/theme-chalk/button.css'
+Vue.use(Form)
+Vue.use(FormItem)
+Vue.use(Input)
+Vue.use(Button)
 export default {
     data() {
         const validatePass = (rule, value, callback) => {
@@ -127,7 +137,7 @@ export default {
     },
 };
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 .main-login {
     height: 100vh;
     background: rgba(54, 209, 220, 1);

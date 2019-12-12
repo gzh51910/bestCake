@@ -1,43 +1,45 @@
 <template>
-  <div id="goodslist">
-    <el-tabs v-model="activeName" id="nav1">
-      <!-- 自营 -->
-      <el-tab-pane label="自营" name="first" class="operation" >
-        <el-tabs class="operationMenu" v-model="activeNametwo"  id="nav2">
-          <!-- 女神 -->
-          <el-tab-pane label="女神" name="goddess" class="goddess">
-            <OpeList :data="goddessdata" type="ns"></OpeList>
-          </el-tab-pane>
-          <!-- 经典 -->
-          <el-tab-pane label="经典" name="classics" class="classics">
-            <OpeList :data="classicsdata" type="jd"></OpeList>
-          </el-tab-pane>
-          <!-- 伴手礼 -->
-          <el-tab-pane label="伴手礼" name="gift" class="gift">
-            <OpeList :data="giftdata" type="jz"></OpeList>
-          </el-tab-pane>
-        </el-tabs>
-      </el-tab-pane>
-      
-      <!-- 贝式严选 -->
-      <el-tab-pane label="贝式严选" name="second" class="manage">
-        <el-tabs class="operationMenu" v-model="activeNamethree" >
-          <!-- 乳品 -->
-          <el-tab-pane label="乳品" name="dairy" class="dairy">
-            <OpeList :data="dairydata" type="rp"></OpeList>
-          </el-tab-pane>
-        </el-tabs>
-      </el-tab-pane>
-    </el-tabs>
-    <!-- footer -->
-    <div class="goodslist-footer">
-      <div class="gonggao clear">
-        <div class="gonggao-l">划线价格</div>
-        <div class="gonggao-r">商品的专柜价、吊牌价、正品零售价、厂商指导价或该商品的曾经展示过的销售价等，并非原价，仅供参考。</div>
-      </div>
-      <div class="gonggao clear">
-        <div class="gonggao-l">未划线价格</div>
-        <div class="gonggao-r">商品的实时标价，不因表述的差异改变性质。具体成交价格根据商品参加活动，或会员使用优惠券、积分等发生变化，最终以订单结算页价格为准。</div>
+  <div id="goodslist" :style="{height:getheight+'px'}" ref="listbox">
+    <div class="clear">
+      <el-tabs v-model="activeName" id="nav1">
+        <!-- 自营 -->
+        <el-tab-pane label="自营" name="first" class="operation" >
+          <el-tabs class="operationMenu" v-model="activeNametwo"  id="nav2">
+            <!-- 女神 -->
+            <el-tab-pane label="女神" name="goddess" class="goddess">
+              <OpeList :data="goddessdata" type="ns"></OpeList>
+            </el-tab-pane>
+            <!-- 经典 -->
+            <el-tab-pane label="经典" name="classics" class="classics">
+              <OpeList :data="classicsdata" type="jd"></OpeList>
+            </el-tab-pane>
+            <!-- 伴手礼 -->
+            <el-tab-pane label="伴手礼" name="gift" class="gift">
+              <OpeList :data="giftdata" type="jz"></OpeList>
+            </el-tab-pane>
+          </el-tabs>
+        </el-tab-pane>
+        
+        <!-- 贝式严选 -->
+        <el-tab-pane label="贝式严选" name="second" class="manage">
+          <el-tabs class="operationMenu" v-model="activeNamethree" >
+            <!-- 乳品 -->
+            <el-tab-pane label="乳品" name="dairy" class="dairy">
+              <OpeList :data="dairydata" type="rp"></OpeList>
+            </el-tab-pane>
+          </el-tabs>
+        </el-tab-pane>
+      </el-tabs>
+      <!-- footer -->
+      <div class="goodslist-footer">
+        <div class="gonggao clear">
+          <div class="gonggao-l">划线价格</div>
+          <div class="gonggao-r">商品的专柜价、吊牌价、正品零售价、厂商指导价或该商品的曾经展示过的销售价等，并非原价，仅供参考。</div>
+        </div>
+        <div class="gonggao clear">
+          <div class="gonggao-l">未划线价格</div>
+          <div class="gonggao-r">商品的实时标价，不因表述的差异改变性质。具体成交价格根据商品参加活动，或会员使用优惠券、积分等发生变化，最终以订单结算页价格为准。</div>
+        </div>
       </div>
     </div>
   </div>
@@ -47,6 +49,15 @@
 <script>
 // 引入自营的女神、经典、伴手礼组件
 import OpeList from "../components/List-ope-goddess";
+import BScroll from 'better-scroll'
+import Vue from 'vue'
+import { Tabs, TabPane } from 'element-ui';
+import 'element-ui/lib/theme-chalk/tabs.css'
+import 'element-ui/lib/theme-chalk/tab-pane.css'
+
+Vue.use(Tabs)
+Vue.use(TabPane)
+
 export default {
   data() {
     return {
@@ -55,11 +66,10 @@ export default {
       activeNamethree: "dairy"
     };
   },
-
-  methods: {
-    
-  },
   computed: {
+    getheight(){
+      return window.innerHeight
+    },
     goddessdata() {
       if (this.$store.state.operationData) {
         return this.$store.state.operationData.filter(  //过滤输出符合条件的数据
@@ -91,15 +101,35 @@ export default {
         )
       }
       return [];
+    },
+    getcake(){
+      return this.$store.state.operationData
     }
   },
   components: {
     OpeList
+  },
+  async created(){
+    let data = await this.getdata("getdata");
+    this.$store.commit("getGoddessData", data); //提交数据给仓库
+  },
+  watch:{
+    getcake(){
+      this.$nextTick(() => {
+        this.scroll = new BScroll(this.$refs.listbox, {
+          scrollX:false,
+          scrollY:true,
+          mouseWheel: true,
+          click: true,
+          taps: true
+        })
+      })
+    },
   }
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" >
 
 
 .operation {
@@ -116,8 +146,6 @@ export default {
   float: right;
   font-size: 4.266vw;
   text-align: center;
-  height: 8.533vw;
-  height: 13vw;
   line-height: 12vw;
 }
 .el-tabs__nav{
@@ -158,7 +186,7 @@ export default {
 .goodslist-footer {
   margin: 0 4vw;
   margin-bottom: 4vw;
-
+  float: right;
   padding: 2vw 0;
   padding-bottom: 20vw;
   font-size: 3.734vw;

@@ -28,6 +28,17 @@
     </div>
 </template>
 <script>
+import Vue from 'vue'
+import { Form, FormItem,Input,Button } from 'element-ui';
+Vue.use(Form)
+Vue.use(FormItem)
+Vue.use(Input)
+Vue.use(Button)
+import 'element-ui/lib/theme-chalk/form.css'
+import 'element-ui/lib/theme-chalk/form-item.css'
+import 'element-ui/lib/theme-chalk/input.css'
+import 'element-ui/lib/theme-chalk/button.css'
+
 export default {
      data() {
       return {

@@ -1,11 +1,11 @@
 <template>
-  <div class="wonderfultime">
+  <div class="wonderfultime" >
     <!-- product-picture -->
     <a href>
       <slot></slot>
     </a>
     <!-- slide-list -->
-    <div class="wonderfultime-list clear">
+    <div class="wonderfultime-list clear" ref="wrapper">
       <!-- @touchmove="aa($event)" @touchstart="bb($event)" ref="oul" :style="{left:disx}" -->
       <ul :style="{width:wid}">
         <li v-for="(item) in data" :key="item.id" @click="getgoodsthree(item)">
@@ -21,6 +21,7 @@
   </div>
 </template>
 <script>
+  import BScroll from 'better-scroll'
   export default {
     props: ["data"],
     data() {
@@ -61,17 +62,32 @@
           }
         })
       },
-      // aa(e){
-      //   this.disx=e.changedTouches["0"].pageX-this.startx;
-      // },
-      // bb(e){
-      //   this.startx=e.changedTouches["0"].pageX;
-
-      // }
-    }
+      
+    },
+    mounted(){
+      this.$nextTick(() => {
+        this.scroll = new BScroll(this.$refs.wrapper, {
+          scrollX:true,
+          scrollY:false
+        })
+      })
+    },
+    watch:{
+      data(){
+        this.$nextTick(() => {
+          this.scroll = new BScroll(this.$refs.wrapper, {
+            scrollX:true,
+            scrollY:false
+          })
+        })
+      }
+    },
   };
 </script>
 <style lang="scss" scoped>
+ul,li{
+  list-style: none;
+}
   .wonderfultime {
     width: 100%; //
     overflow: hidden; //
@@ -90,9 +106,9 @@
     background: #fafafa;
   }
 
-  .wonderfultime-list {
-    overflow-x: scroll;
-  }
+  // .wonderfultime-list {
+  //   overflow-x: scroll;
+  // }
 
   .wonderfultime-list ul {
     float: left;

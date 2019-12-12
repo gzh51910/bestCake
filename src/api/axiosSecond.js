@@ -1,12 +1,15 @@
+
+import Vue from 'vue'
 import axios from 'axios';
+Vue.prototype.$axios = axios
 
 axios.defaults.baseURL="http://118.31.77.168:3001/"
 
-function getdata(url,data){
-    return axios.get(url,data)
+async function getdata(url,data){
+    return await axios.get(url,data)
 }
-function postdata(url,data){
-    return axios.post(url,data)
+async function postdata(url,data){
+    return await axios.post(url,data)
 }
 
 export default {

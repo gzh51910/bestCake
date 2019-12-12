@@ -1,93 +1,83 @@
 <template>
-  <div>
-    <!-- {{getspecial}} -->
-    <!-- banner -->
-    <div class="block">
+  <div :style="{height:getheight+'px'}" ref="indexbox">
+    <div>
+      <!-- {{getspecial}} -->
+      <!-- banner -->
+      <div class="block">
 
-      <!-- <span class="demonstration">Click 指示器触发</span> -->
+        <!-- <span class="demonstration">Click 指示器触发</span> -->
 
-      <el-carousel trigger="click" height="150px">
-        <el-carousel-item v-for="(item,idx) in getbannerdata" :key="idx">
-          <div>
-            <img :src="item.ImgUrl" alt @click="bannerpage(idx)"/>
-          </div>
-        </el-carousel-item>
-      </el-carousel>
-    </div>
-    <!-- title -->
-    <div class="titleImg">
-      <img src="../assets/imgs/home-title.png" alt />
-    </div>
-    <!-- advImg -->
-    <div class="advImg">
-      <a href class="adv">
-        <img src="../assets/imgs/home-fc.gif" alt />
-      </a>
-    </div>
-    <!-- classify -->
-    <div class="classify">
-      <ul class="clear">
-        <li v-for="item in getclassify"  :key="item.Id" @click="tolist">
-          <img :src="item.ImgUrl" alt />
-          <span>{{item.ActName}}</span>
-        </li>
-      </ul>
-    </div>
-    <!-- notice -->
-    <div class="notive">
-      <span>通知</span>
-      <marquee class="notive-text" behavior direction>
-        贝思客官方申明：我司近期发现有客户通过非正常渠道售卖的代金卡无法正常使用，目前我司正通过法律途径解决此问题。我司在此郑重申明，从未授权过任何渠道售卖我司代金卡，请客户通过正常渠道（如：官网、公司销售）进行购买消费。
-      </marquee>
-    </div>
-    <!-- special -->
-    <div class="special">
-      <ul class="clear">
-        <li v-for="item in getspecial" :key="item.Id">
-          <img :src="item.ImgUrl" alt @click="getgoodstwo(item)" />
-        </li>
-      </ul>
-    </div>
-
-    <!-- box-wonderFultime -->
-    <HomeBox :data="getwonderfulTime">
-      <img src="../assets/imgs/home-571060506020139900.jpg" alt class="box-top-img" />
-    </HomeBox>
-
-    <!-- box-leisureFood -->
-    <HomeBox :data="getleisureFood">
-      <img src="../assets/imgs/home-427276281583982800.jpg" alt class="box-top-img" />
-    </HomeBox>
-
-    <!-- box-iceCream -->
-    <HomeBox :data="geticeCream" class="HomeBox-bottom">
-      <img src="../assets/imgs/home-3427276281583982800.jpg" alt class="box-top-img" />
-    </HomeBox>
-
-    <!-- <div class="wonderfultime">
-      <a href=""><img src="../assets/imgs/home-571060506020139900.jpg" alt="" class="wonderfultime-top-img"></a>
-
-      <div class="wonderfultime-list">
-        <ul>
-          <li v-for="(item) in getwonderfultime" :key="item.id">
-            <img src="" alt="">
-            '
-            <h4>{{item.Name}}</h4>
-            <p>
-              <span class="current-price">￥{{}}</span>
-              <span class="original-price"></span>
-            </p>
+        <el-carousel trigger="click" height="150px">
+          <el-carousel-item v-for="(item,idx) in getbannerdata" :key="idx">
+            <div>
+              <img v-lazy="item.ImgUrl" alt @click="bannerpage(idx)"/>
+            </div>
+          </el-carousel-item>
+        </el-carousel>
+      </div>
+      <!-- title -->
+      <div class="titleImg">
+        <img src="../assets/imgs/home-title.png" alt />
+      </div>
+      <!-- advImg -->
+      <div class="advImg">
+        <a href class="adv">
+          <img src="../assets/imgs/home-fc.gif" alt />
+        </a>
+      </div>
+      <!-- classify -->
+      <div class="classify">
+        <ul class="clear">
+          <li v-for="item in getclassify"  :key="item.Id" @click="tolist">
+            <img :src="item.ImgUrl" alt />
+            <span>{{item.ActName}}</span>
           </li>
         </ul>
-    </div>-->
-    <!-- </div> -->
+      </div>
+      <!-- notice -->
+      <div class="notive">
+        <span>通知</span>
+        <marquee class="notive-text" behavior direction>
+          贝思客官方申明：我司近期发现有客户通过非正常渠道售卖的代金卡无法正常使用，目前我司正通过法律途径解决此问题。我司在此郑重申明，从未授权过任何渠道售卖我司代金卡，请客户通过正常渠道（如：官网、公司销售）进行购买消费。
+        </marquee>
+      </div>
+      <!-- special -->
+      <div class="special">
+        <ul class="clear">
+          <li v-for="item in getspecial" :key="item.Id">
+            <img :src="item.ImgUrl" alt @click="getgoodstwo(item)" />
+          </li>
+        </ul>
+      </div>
+
+      <!-- box-wonderFultime -->
+      <HomeBox :data="getwonderfulTime">
+        <img src="../assets/imgs/home-571060506020139900.jpg" alt class="box-top-img" />
+      </HomeBox>
+
+      <!-- box-leisureFood -->
+      <HomeBox :data="getleisureFood">
+        <img src="../assets/imgs/home-427276281583982800.jpg" alt class="box-top-img" />
+      </HomeBox>
+
+      <!-- box-iceCream -->
+      <HomeBox :data="geticeCream" class="HomeBox-bottom">
+        <img src="../assets/imgs/home-3427276281583982800.jpg" alt class="box-top-img" />
+      </HomeBox>
+
+      
+    </div>
   </div>
 </template>
 <script>
   import HomeBox from "../components/home-box-wonderfulTime";
-  import axios from "axios"
-  import Vue from "vue"
-  Vue.use(axios)
+  import BScroll from 'better-scroll'
+  import Vue from 'vue'
+  import { Carousel, CarouselItem } from 'element-ui';
+  import 'element-ui/lib/theme-chalk/carousel.css'
+  import 'element-ui/lib/theme-chalk/carousel-item.css'
+  Vue.use(Carousel)
+  Vue.use(CarouselItem)
   export default {
     data() {
       return {};
@@ -101,25 +91,9 @@
         }
         return [];
       },
-      // getclassify() {
-      //   if (this.$store.state.homeData != "") {
-      //     return this.$store.state.homeData.TopIconList;
-      //   }
-      //   return [];
-      // },
-      // getspecial() {
-      //   if (this.$store.state.homeData != "") {
-      //     return this.$store.state.homeData.CenterContentList;
-      //   }
-      //   return [];
-      // },
-      // getwonderfulTime() {
-      //   if (this.$store.state.homeData != "") {
-      //     //0/null/undefined/""   []
-      //     return JSON.parse(this.$store.state.homeData.SaleList[0].CakeList); //字符串->对象
-      //   }
-      //   return [];
-      // },
+      getheight(){
+        return window.innerHeight
+      },
       getleisureFood() {
         if (this.$store.state.homeData != "") {
           let data=JSON.parse(this.$store.state.homeData.SaleList[1].CakeList.replace(/'/g,"\""));
@@ -161,32 +135,13 @@
         }
         return []
       },
-      // getleisureFood() {
-      //   if (this.$store.state.homeData != "") {
-      //     return JSON.parse(this.$store.state.homeData.SaleList[1].CakeList);
-      //   }
-      //   return [];
-      // },
-      // geticeCream() {
-      //   if (this.$store.state.homeData != "") {
-      //     let data=JSON.parse(this.$store.state.homeData.SaleList[2].CakeList.replace(/'/g,"\""));
-          
-      //     return data;
-      //   }
-      //   return [];
-      // },
+     
     },
 
     components: {
       HomeBox
     },
 
-    // goodsT(id){
-    //     this.$router.push({path:'goods',query:{id},params:{id}})
-    // },
-    // goodsT(id,brand){
-    //   this.$router.push({path:'goods',query:{id,brand},params:{id}})
-    // }
 
 
     methods: {
@@ -234,6 +189,19 @@
       }
       
     },
+    mounted(){
+      this.$nextTick(() => {
+          this.scroll = new BScroll(this.$refs.indexbox, {
+            scrollY: true, 
+            scrollX: false,
+            mouseWheel: true,
+            click: true,
+            taps: true
+          })
+      })
+      
+      
+    }
   };
 
 </script>
@@ -321,7 +289,7 @@
   }
 
   .classify li {
-    width: 25vw;
+    width:15vw;
     text-align: center;
     float: left;
     white-space: nowrap;
@@ -345,7 +313,7 @@
   // notive
   .notive {
     width: 100%;
-    height: 15vw;
+    height: 11vw;
     margin: 0 auto;
     position: relative;
     color: #1fb1b8;

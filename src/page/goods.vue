@@ -155,9 +155,17 @@
     </div>
 </template>
 <script>
-    import axios from "axios"
-    import Vue from "vue"
-    Vue.use(axios)
+    import Vue from 'vue'
+    import axios from 'axios';
+    import { InputNumber, Carousel,CarouselItem } from 'element-ui';
+    import 'element-ui/lib/theme-chalk/carousel.css'
+    import 'element-ui/lib/theme-chalk/input-number.css'
+    import 'element-ui/lib/theme-chalk/carousel-item.css'
+    Vue.use(InputNumber)
+    Vue.use(Carousel)
+    Vue.use(CarouselItem)
+    Vue.prototype.$axios = axios
+    
     export default {
         data() {
             return {
@@ -332,7 +340,7 @@
  }
         },
         created() {
-            axios.get("http://118.31.77.168:3001/getdetail").then((ppa) => {
+            this.$axios.get("http://118.31.77.168:3001/getdetail").then((ppa) => {
                 this.p = ppa.data;
                 this.id = this.$route.query.id
                 for (let index = 0; index < ppa.data[1].length; index++) {
@@ -341,7 +349,7 @@
                     }
                 }
             })
-            axios.get("http://118.31.77.168:3001/getcomment").then((dda) => {function number(max, min) {
+            this.$axios.get("http://118.31.77.168:3001/getcomment").then((dda) => {function number(max, min) {
                 dda
                     return parseInt(Math.random() * (max - min + 1) + min, 10);
                 }

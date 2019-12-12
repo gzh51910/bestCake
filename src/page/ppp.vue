@@ -123,7 +123,7 @@ export default {
     
 }
 </script>
-<style lang="scss" >
+<style lang="scss" scoped>
 // <link rel="stylesheet" href="https://res.bestcake.com/css-2/ui/ui.min.css?v=20170710" />
 // <link rel="stylesheet" href="https://res.bestcake.com/css/vercode.css" />
 // <link href="https://res.bestcake.com/m-images/new/login.css?v=20190108" rel="stylesheet" />

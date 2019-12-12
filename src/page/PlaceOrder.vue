@@ -46,9 +46,12 @@
             <div class="shop_show">
                 <img :src="img" alt="">
             </div>
-            <div class="left" style="width:53%;height:3rem;margin-top:0.3rem">商品名字：<strong>{{name}}</strong></div>
-            <div class="left" style="width:53%;height:3rem;margin-top:0.3rem">重量：<strong>{{size}}</strong></div>
-            <div class="left" style="width:53%;height:3rem;margin-top:0.3rem">price：<strong>{{price}}</strong></div>
+            <div class="left" style="width:53%"> 
+                <div  style="height:3rem;margin-top:0.3rem">商品名字：<strong>{{name}}</strong></div>
+                <div  style="height:3rem;margin-top:0.3rem">重量：<strong>{{size}}</strong></div>
+                <div  style="height:3rem;margin-top:0.3rem">price：<strong>{{price}}</strong></div>
+            </div>
+           
             <div style="margin-top:1rem;float:left" class="day">
                 <div class="left">蛋糕牌：</div>
                 <div class="right">请请添加》</div>
@@ -85,6 +88,12 @@
 
 </template>
 <script>
+import Vue from 'vue'
+import { DatePicker, TimeSelect } from 'element-ui';
+import 'element-ui/lib/theme-chalk/date-picker.css'
+import 'element-ui/lib/theme-chalk/time-select.css'
+Vue.use(DatePicker)
+Vue.use(TimeSelect)
     export default {
         data() {
             return {
@@ -136,7 +145,7 @@
         }
     };
 </script>
-<style lang="css">
+<style lang="css" scoped>
 .payment {
     position: fixed;
     bottom: 0;
@@ -148,15 +157,15 @@
     border-top: 1px solid #f6f6f6;
 }
     .shop_show {
-        width: 10rem;
+        width: 47%;
         height: 10rem;
-        background: yellowgreen;
-        margin-top: 0.5rem;
-        margin-left:2rem;
+        padding-top: 0.5rem;
+        padding-left:2rem;
         float: left;
     }
     .shop_show img{
         width: 100%;
+        height: 100%;
     }
     .fanhui {
         width: 100%;
@@ -193,7 +202,7 @@
         margin-top: 1rem;
         background: white;
         margin-top: 0.5rem;
-
+        padding-top: 0.5rem;
     }
 
     .peisong-1 {
@@ -201,7 +210,10 @@
         line-height: 3rem;
         height: 3rem;
     }
-
+    .fl{
+        float: left;
+        box-sizing: border-box;
+    }
     .left {
         float: left;
         padding-left: 2rem;
@@ -210,12 +222,15 @@
 
     .right {
         float: right;
-        margin-right: 3rem;
+        margin-right: 2rem;
         color: #666
     }
 
     .wuliu {
         line-height: 3rem;
+    }
+    .wuliu img{
+        vertical-align: middle;
     }
 
     .address {
